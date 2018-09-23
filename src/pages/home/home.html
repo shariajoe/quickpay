@@ -1,0 +1,79 @@
+<ion-content>
+  <!-- <ion-slides loop="true" autoplay=5000 speed=1000 effect="coverflow" style="height:65%">
+
+    <ion-slide style="background:url('assets/slide1.png')center;background-size:cover" > 
+    </ion-slide>
+
+    <ion-slide style="background:url('assets/slide2.png')center;background-size:cover" >
+    </ion-slide>
+
+    <ion-slide  style="background:url('assets/slide4.png')center;background-size:cover" >
+    </ion-slide>
+
+  </ion-slides> -->
+  <div class="center" style="position: absolute;top: 150px;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -100px);
+    -webkit-transform: translate(-50%, -100px);z-index: 999;height: 160px;width: 160px;border-radius: 50%; background: #800080">
+  </div>
+  <div class="full-width" text-center ion-text color="purple" style="margin-top: 230px">
+    <h1>QuickPay<sup>TM</sup></h1>
+  </div>
+  
+  <div class="card-holder">
+    <ion-card style="max-width: 800px; margin-left: auto;margin-right: auto;">
+      <div padding>
+        <ion-item>
+          <ion-icon name="contact" item-left color="purple"></ion-icon>
+          <input type="tel" placeholder="Username" class="full-width custom-input" [(ngModel)]="objectblock.user"/>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="unlock" item-left color="purple"></ion-icon>
+          <input type="password" placeholder="Password" maxlength="20" class="full-width custom-input" [(ngModel)]="objectblock.pass"/>
+        </ion-item>     
+        
+        <button ion-button block (click)="submit(objectblock)" text-capitalize color="purple">
+          Log In
+        </button>
+            
+      </div>
+    </ion-card>
+    <ion-row padding>
+      <ion-col class="full-width center" ion-text color="purple">
+        Sign Up
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-content>
+<ion-footer no-border class="hide-on-keyboard-open">
+   <ion-navbar color="mytran">    
+    <ion-row center>
+      <ion-col class="lower_tabs center" (click)="shareSheetShare()">
+        <div text-center>
+          <ion-icon name="contacts" class="home_icon_font" color="purple"></ion-icon>
+          <br>
+          Tell a friend
+        </div>
+      </ion-col>
+      <ion-col class="lower_tabs center" (click)="openPage('ContactsPage')">
+        <div text-center>
+           <ion-icon name="call" class="home_icon_font" color="purple"></ion-icon>
+          <br>
+          Contact Us
+        </div>
+      </ion-col>
+      <ion-col class="center" (click)="openPage('LocationtabsPage')">
+        <div text-center>
+          <ion-icon name="locate" class="home_icon_font" color="purple"></ion-icon>
+          <br>
+          Locate Us
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-navbar>
+</ion-footer>
+
+
+
+

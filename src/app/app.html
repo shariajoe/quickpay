@@ -1,0 +1,18 @@
+<ion-split-pane when="lg">
+  <ion-menu [content]="content">
+    <ion-content class="bg-purple">
+      <div class=" center full-height">
+        <ion-list>
+          <div menuClose  *ngFor="let p of pages" (click)="openPage(p)" 
+          color="mytran" no-lines style="font-size: 20px;font-style: bold;" ion-text color="white" 
+          class="full-width" text-center padding>
+              {{p.title}}
+          </div>
+        </ion-list>
+      </div>
+    </ion-content>
+  </ion-menu>
+
+  <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+  <ion-nav [root]="rootPage" main #content swipeBackEnabled="false"></ion-nav>
+</ion-split-pane>

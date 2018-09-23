@@ -1,0 +1,8 @@
+{
+  "name": "quickpay",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular",
+  "pro_id": "c318d2a9"
+}

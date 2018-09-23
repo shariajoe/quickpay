@@ -1,0 +1,26 @@
+page-home {
+    .home_icon_font{
+    	font-size: 20px;
+    }
+    .sign_up{
+   	    font-size: 10px;
+    }
+    .custom-input{
+   	    border: 1px solid #ddd; 
+   	    border-width: 0px 0px 1px 0px;
+   	    padding-bottom: 5px;
+    }
+    .lower_tabs{
+    	border-right: solid 1px #ddd;
+    }
+    .card-holder{
+    	margin: 0;
+    	position: absolute;
+    	top: 70%;
+    	left: 50%;
+    	margin-right: -50%;
+    	-webkit-transform: translate(-50%, -50%);
+    	width: 95%;
+    	z-index:999;
+    }
+}
