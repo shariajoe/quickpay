@@ -1,0 +1,100 @@
+<!--
+  Generated template for the CarCarePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header mode="ios">
+
+  <ion-navbar id="quickgrad">
+    <button ion-button icon-start color="mytran" class="no-shadow">
+	  <ion-icon name="md-menu"></ion-icon>
+	  <img src="assets/imgs/quickpay_logo_only.png" style="height:35px;"/>
+	  <ion-title color="white" text-capitalize>Car Care</ion-title>
+	</button>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="position: relative;">
+	<div class="center">
+	    <div  *ngIf="shopList" style="padding: 20px">
+	    	<ion-row no-padding>
+				<ion-col no-padding col-lg-12 col-md-12 col-sm-12 col-12 text-center>
+					<div padding>
+						<div ion-text color="quickgrey" style="font-size: 18px;margin-top: 20px"> Select Shop</div>
+						<ion-searchbar (ionInput)="getShops($event)"
+						 mode="md"
+						 placeholder = "Search for shop"
+						 [(ngModel)]="searchTerm" [formControl]="searchControl"
+						>	
+						</ion-searchbar>
+					</div>
+				</ion-col>
+			    <ion-col no-padding col-lg-12 col-md-12 col-sm-12 col-12 text-center>
+					<ion-list style="padding:0px 20px 0px 20px; max-width: 600px;margin: 0px auto;">
+						<div *ngFor="let section of sections;let i=index">
+						  <ion-list-header text-left>
+						    {{section.letter}}
+						  </ion-list-header>
+						  <ion-item text-center *ngFor="let shop of section.shops;let i=index" [ngStyle]="{'background-color': i%2 != 0?'transparent':'#80808010'}" no-lines (click)="setVisible('carList')">
+						    {{ shop.name}}
+						  </ion-item>
+						</div>
+					</ion-list>
+				</ion-col>
+			</ion-row>
+		</div>
+    </div>
+
+	
+    <div class="center">
+	    <div  *ngIf="carList" padding>
+			<ion-row no-padding>
+				<ion-col no-padding col-lg-12 col-md-12 col-sm-12 col-12 text-center>
+					<div ion-text color="quickgrey" style="font-size: 18px;margin-top: 20px;margin-bottom: 20px;margin-left: -20px;"> 
+						<ion-icon name="ios-arrow-back" style="margin-right: 20px;font-size: 18px" (click)="setVisible('shopList')"></ion-icon>
+						Select vehicle type
+					</div>
+				</ion-col>
+				<ion-col no-padding col-lg-3 col-md-4 col-sm-6 col-6 *ngFor="let type of vehicleTypes;">
+					<ion-card style="height:160px;margin:20px" class="no-shadow" text-center (click)="setVisible('serviceList')">
+						<div style="height:120px;width:120px;background-repeat: no-repeat;background-size: contain;background-position: center; margin:0px auto" [ngStyle]="{'background-image': 'url('+type.image+')'}"></div>
+						<div text-center class="full-width">{{type.name}}</div>
+					</ion-card>
+				</ion-col>
+			</ion-row>
+		</div>
+	</div>
+
+
+	<div class="center">
+	    <div  *ngIf="serviceList" padding class="full-width">
+	    	<ion-row no-padding>
+	    		<ion-col no-padding col-lg-12 col-md-12 col-sm-12 col-12 text-center>
+					<div ion-text color="quickgrey" style="font-size: 18px;margin-top: 20px;margin-bottom: 20px;margin-left: -20px;"> 
+						<ion-icon name="ios-arrow-back" style="margin-right: 20px;font-size: 18px" (click)="setVisible('carList')"></ion-icon>
+						Select service(s)
+					</div>
+				</ion-col>
+				<ion-col no-padding col-lg-12 col-md-12 col-sm-12 col-12 text-center style="margin-bottom: 100px">
+					<ion-list style="padding:0px 20px 0px 20px; max-width: 600px;margin: 0px auto;">
+						
+						<ion-item *ngFor="let service of services;" text-center>
+						  <ion-label>{{service.name}}</ion-label>
+						  <ion-checkbox color="quickgreen" checked="false"></ion-checkbox>
+						</ion-item>
+
+					</ion-list>
+				</ion-col>
+			</ion-row>
+	    </div>
+	</div>
+
+</ion-content>
+<ion-footer no-border class="hide-on-keyboard-open bg-white" padding *ngIf="serviceList">
+    <button ion-button block (click)="submit(objectblock)" text-capitalize color="quickgreen" mode="ios" round>
+      Proceed
+    </button>
+</ion-footer>

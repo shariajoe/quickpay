@@ -9,19 +9,25 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
+  
   rootPage: any = "HomePage";
 
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{title: string, component: any, image: string}>;
+  activePage: string = "Home"
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
     this.initializeApp();
+    this.activePage = localStorage.getItem("activePage")?localStorage.getItem("activePage"):"Home";
+    if(this.activePage === "Car Care"){
+      this.rootPage = "CarCarePage"
+    }
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', component: "HomePage" },
-      { title: 'Car Care', component: "HomePage" },
-      { title: 'CarpetKlin', component: "HomePage" },
-      { title: 'Garbage Kollect', component: "HomePage" }
+      { title: 'Home', component: "HomePage", image:"assets/imgs/house.png"},
+      { title: 'Car Care', component: "CarCarePage", image:"assets/imgs/car.png" },
+      { title: 'CarpetKlin', component: "CarpetKlinPage", image:"assets/imgs/carpet.png" },
+      { title: 'Garbage Kollect', component: "HomePage", image:"assets/imgs/garbage.png" }
     ];
 
   }
@@ -36,8 +42,14 @@ export class MyApp {
   }
 
   openPage(page) {
+    this.activePage = page.title;
+    localStorage.setItem("activePage",page.title);
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
+  }
+
+  onChangeActive(page){
+    this.activePage = page;
   }
 }

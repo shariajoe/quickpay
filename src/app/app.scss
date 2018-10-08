@@ -24,6 +24,20 @@
 }
 body, .ionic-body  {
     font-family:'Montserrat-Regular';
+    color: color($colors, quickgrey);
+}
+ion-content {
+    color: color($colors, quickgrey);
+}
+@media screen and (max-width: 767px) {
+    .hidden-xs {
+        display:none;
+    }
+}
+@media screen and (min-width: 767px) {
+    .hidden-lg {
+        display:none;
+    }
 }
 .center {
 	display: -webkit-box;
@@ -75,6 +89,57 @@ body, .ionic-body  {
 .no-border{
 	border: none;
 }
-.bg-purple{
-	background: #3b3b71;
+.no-shadow{
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
 }
+.bg-grey{
+	background: color($colors, quickgrey);
+}
+.bg-green{
+	background: color($colors, quickgreen);
+}
+.bg-white{
+	background: color($colors, white);
+}
+.active-tab{
+    background-color: #fff;
+    width:100%;
+    border-radius: 25px 0px 0px 25px;
+    padding-left: 40px;
+    margin-left: 60px;
+    text-align: left;
+}
+.top_search_bar{
+	text-align: center;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	margin-top: 60px;
+	z-index: 99;
+}
+.absolute-center{
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+}
+.toolbar-background {
+	-moz-background-image: -moz-linear-gradient(to right, color($colors, quickgreen), color($colors, quickgrey));
+    -webkit-background-image: -webkit-linear-gradient(to right, color($colors, quickgreen), color($colors, quickgrey));
+    background-image: linear-gradient(to right, color($colors, quickgreen), color($colors, quickgrey));
+}
+.toolbar-title{
+    color:  color($colors, white);
+}
+.searchbar-md .searchbar-input{
+  	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+	border: 1px solid #ddd; 
+	border-radius: 25px;
+  }

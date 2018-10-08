@@ -1,14 +1,37 @@
 <ion-split-pane when="lg">
   <ion-menu [content]="content">
-    <ion-content class="bg-purple">
-      <div class=" center full-height">
-        <ion-list>
-          <div menuClose  *ngFor="let p of pages" (click)="openPage(p)" 
-          color="mytran" no-lines style="font-size: 20px;font-style: bold;" ion-text color="white" 
-          class="full-width" text-center padding>
-              {{p.title}}
-          </div>
-        </ion-list>
+    <ion-content class="bg-grey">
+      <div class=" center full-height full-width">
+        <div class="full-width" text-center >
+          <ion-row no-padding style="margin: 0 auto 10px auto;" align-items-center>
+            <ion-col no-padding col-4 class="center">
+             <div style="color:rgba(255,255,255,.7);font-size: 12px">Log out</div>
+            </ion-col>
+            <ion-col no-padding col-4 class="center">
+              <div style="height:100px;width:100px;background:url('assets/imgs/user.png');background-position: center;background-repeat: no-repeat;background-size:cover; border-radius: 50%">
+              </div>
+            </ion-col>
+            <ion-col no-padding col-4 class="center">
+              <div style="color:rgba(255,255,255,.7);font-size: 12px">My account</div>
+            </ion-col>
+          </ion-row>
+          
+          <div ion-text color="white" style="margin-bottom: 20px">Welcome Paul Nderitu</div>
+          <ion-list class="full-width">
+            <div *ngFor="let p of pages">
+              <div menuClose *ngIf="activePage === p.title" (click)="openPage(p)" 
+              class="full-width active-tab" padding>
+                <img src={{p.image}} style="height:50px"/>
+                <div>{{p.title}}</div>
+              </div>
+              <div menuClose text-center *ngIf="activePage !== p.title" (click)="openPage(p)"
+              class="full-width" padding>
+                <img src={{p.image}} style="height:50px"/>
+                <div ion-text color="white">{{p.title}}</div>
+              </div>
+            </div>
+          </ion-list>
+        </div>
       </div>
     </ion-content>
   </ion-menu>

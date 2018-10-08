@@ -23,4 +23,26 @@ page-home {
     	width: 95%;
     	z-index:999;
     }
+    .my-card{
+        max-width: 800px; 
+        margin-left: auto;
+        margin-right: auto;
+        border-radius:25px
+    }
+    .logo-holder{
+        position: absolute;top: 150px;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -100px);
+        -webkit-transform: translate(-50%, -100px);
+        z-index: 999;
+        height: 200px;
+        width: 200px;
+        border-radius: 50%;
+        background:#fff; 
+        display:flex; 
+        align-items: center;
+        justify-content: center;
+        overflow: hidden
+    }
 }
