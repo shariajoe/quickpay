@@ -48,10 +48,10 @@ shops: any = [];
     {name:"Okoth Obado Wash"},
     {name:"Mwajeu Car Wash"}];
 
-    this.services = [{name:"Doormat"},
-    {name:"Small"},
-    {name:"Big"},
-    {name:"Large"}];
+    this.services = [{name:"Doormat",price:500},
+    {name:"Small",price:500},
+    {name:"Big",price:2000},
+    {name:"Large",price:2500}];
 
     this.allShops = this.shops;
 

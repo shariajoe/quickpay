@@ -61,16 +61,16 @@ export class CarCarePage {
     {name:"Others",image:"assets/imgs/cars/saloon.png"}];
 
 
-    this.services = [{name:"Exterior Basic"},
-    {name:"Interior Basic"},
-    {name:"Engine Clean"},
-    {name:"Under Wash"},
-    {name:"Vacuum Interior"},
-    {name:"Upholstery Clean"},
-    {name:"Interior Polish"},
-    {name:"Tire Polish"},
-    {name:"Buffing"},
-    {name:"Body Wax"}];
+    this.services = [{name:"Exterior Basic",price:1000},
+    {name:"Interior Basic",price:2000},
+    {name:"Engine Clean",price:4500},
+    {name:"Under Wash",price:500},
+    {name:"Vacuum Interior",price:500},
+    {name:"Upholstery Clean",price:500},
+    {name:"Interior Polish",price:600},
+    {name:"Tire Polish",price:2000},
+    {name:"Buffing",price:3000},
+    {name:"Body Wax",price:3000}];
 
     this.allShops = this.shops;
 
@@ -140,7 +140,6 @@ export class CarCarePage {
     if(this.searchTerm.length >= 3){
       this.searching = true;
     }
-    // this.queried = false;
   }
 
 }

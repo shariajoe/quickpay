@@ -142,4 +142,17 @@ ion-content {
 	box-shadow: none;
 	border: 1px solid #ddd; 
 	border-radius: 25px;
-  }
+}
+.navbar-logo-outer{
+	height: 35px;
+	width: 35px;
+	border-radius: 50%;
+}
+.navbar-logo-inner{
+	height: 35px;
+	width: 35px;
+	border-radius: 50%;
+	background: url('../assets/imgs/quick_tran.png') center;
+	background-repeat: no-repeat;
+    background-size: contain;
+}
