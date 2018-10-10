@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, MenuController, Content } from 'ionic-angular';
 import {debounceTime} from "rxjs/operators/debounceTime";
 import {FormControl} from "@angular/forms";
 import * as _ from 'lodash';
@@ -18,6 +18,8 @@ import * as _ from 'lodash';
 })
 export class CarCarePage {
 
+  @ViewChild('pageTop') pageTop: Content;
+
   shops: any = [];
   allShops: any = [];
   searchTerm: string = '';
@@ -28,9 +30,11 @@ export class CarCarePage {
   shopList: boolean = true;
   carList: boolean = false;
   serviceList: boolean = false;
+  reviewList: boolean = false;
+  slide_down: boolean = false;
   services: any = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public menuCtrl: MenuController) {
     this.shops = [
     {name:"Steve Wash"},
     {name:"Azei Cleaning Services"},
@@ -101,27 +105,51 @@ export class CarCarePage {
 
   }
 
+  openMenu() {
+	 this.menuCtrl.open();
+  }
+
   setVisible(list){
+  	 this.pageScroller();
      if(list=="carList"){
         this.shopList = false;
         this.serviceList = false;
         this.carList = true;
+        this.reviewList = false;
+
      } else if(list=="shopList"){
      	this.shopList = true;
         this.serviceList = false;
         this.carList = false;
+        this.reviewList = false;
 
      } else if(list=="serviceList"){
      	this.shopList = false;
         this.serviceList = true;
         this.carList = false;
-
+        this.reviewList = false;
      }
+     else if(list=="reviewList"){
+     	this.shopList = false;
+        this.serviceList = false;
+        this.carList = false;
+        this.reviewList = true;
+        let that = this;
+        setTimeout(()=>{
+        	 that.slide_down = true;
+        },300);
+     }
+
+  }
+
+  pageScroller(){
+    //scroll to page top
+    this.pageTop.scrollToTop();
   }
 
 
   getShops(){
-    let filteredShops = this.allShops.filter(shop => shop.name.toLowerCase().indexOf(this.searchTerm) >= 0);
+    let filteredShops = this.allShops.filter(shop => shop.name.toLowerCase().indexOf(this.searchTerm.toLowerCase()) >= 0);
     this.shops= filteredShops;
     let result = _(this.shops)
         .groupBy(o => o.name[0].toUpperCase())

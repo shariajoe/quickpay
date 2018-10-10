@@ -1,5 +1,5 @@
 <ion-content style="background:url('assets/imgs/wallet_back.png') center;background-size: cover">
-    <div class="center logo-holder">
+  <div class="center logo-holder">
     <img src="assets/imgs/quickpay_logo.png" style="height:150px;width:150px"/>
   </div>
   
@@ -7,15 +7,15 @@
     <ion-card class="no-shadow my-card">
       <div padding>
         <ion-item>
-          <ion-icon name="contact" item-left color="quickgreen"></ion-icon>
+          <ion-icon name="contact" item-left color="quickgrey"></ion-icon>
           <input type="tel" placeholder="Username" class="full-width custom-input" [(ngModel)]="objectblock.user"/>
         </ion-item>
         <ion-item>
-          <ion-icon name="unlock" item-left color="quickgreen"></ion-icon>
+          <ion-icon name="unlock" item-left color="quickgrey"></ion-icon>
           <input type="password" placeholder="Password" maxlength="20" class="full-width custom-input" [(ngModel)]="objectblock.pass"/>
         </ion-item>     
         
-        <button ion-button block (click)="submit(objectblock)" text-capitalize color="quickgreen" mode="ios" round>
+        <button ion-button block (click)="openPage('DashboardPage')" text-capitalize color="quickgreen" mode="ios" round>
           Log In
         </button>
             

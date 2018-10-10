@@ -16,7 +16,7 @@ page-home {
     .card-holder{
     	margin: 0;
     	position: absolute;
-    	top: 70%;
+    	top: 75%;
     	left: 50%;
     	margin-right: -50%;
     	-webkit-transform: translate(-50%, -50%);
@@ -43,6 +43,6 @@ page-home {
         display:flex; 
         align-items: center;
         justify-content: center;
-        overflow: hidden
+        overflow: hidden;
     }
 }

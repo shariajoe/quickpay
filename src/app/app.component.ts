@@ -1,8 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform , MenuController} from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
+import { MenuProvider } from '../providers/menu/menu';
+ 
 @Component({
   templateUrl: 'app.html'
 })
@@ -13,21 +14,20 @@ export class MyApp {
   rootPage: any = "HomePage";
 
   pages: Array<{title: string, component: any, image: string}>;
-  activePage: string = "Home"
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, 
+    public menuCtrl: MenuController, public menuProvider: MenuProvider) {
     this.initializeApp();
-    this.activePage = localStorage.getItem("activePage")?localStorage.getItem("activePage"):"Home";
-    if(this.activePage === "Car Care"){
-      this.rootPage = "CarCarePage"
-    }
+    
+
+    console.log(this.rootPage)
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', component: "HomePage", image:"assets/imgs/house.png"},
+      { title: 'Home', component: "DashboardPage", image:"assets/imgs/house.png"},
       { title: 'Car Care', component: "CarCarePage", image:"assets/imgs/car.png" },
       { title: 'CarpetKlin', component: "CarpetKlinPage", image:"assets/imgs/carpet.png" },
-      { title: 'Garbage Kollect', component: "HomePage", image:"assets/imgs/garbage.png" }
+      { title: 'Garbage Kollect', component: "GarbagePage", image:"assets/imgs/garbage.png" }
     ];
 
   }
@@ -42,14 +42,18 @@ export class MyApp {
   }
 
   openPage(page) {
-    this.activePage = page.title;
+    this.menuProvider.activePage = page.title;
     localStorage.setItem("activePage",page.title);
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
   }
 
+  openNonMenuPage(page) {
+    this.nav.setRoot(page);
+  }
+
   onChangeActive(page){
-    this.activePage = page;
+    this.menuProvider.activePage = page;
   }
 }

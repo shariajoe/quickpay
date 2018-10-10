@@ -4,28 +4,28 @@
       <div class=" center full-height full-width">
         <div class="full-width" text-center >
           <ion-row no-padding style="margin: 0 auto 10px auto;" align-items-center>
-            <ion-col no-padding col-4 class="center">
-             <div style="color:rgba(255,255,255,.7);font-size: 12px">Log out</div>
+            <ion-col no-padding col-4 class="center point_me" (click)="openNonMenuPage('HomePage')" menuClose>
+             <div style="color:rgba(255,255,255,.4);font-size: 12px">Log out</div>
             </ion-col>
             <ion-col no-padding col-4 class="center">
               <div style="height:100px;width:100px;background:url('assets/imgs/user.png');background-position: center;background-repeat: no-repeat;background-size:cover; border-radius: 50%">
               </div>
             </ion-col>
-            <ion-col no-padding col-4 class="center">
-              <div style="color:rgba(255,255,255,.7);font-size: 12px">My account</div>
+            <ion-col no-padding col-4 class="center point_me" (click)="openNonMenuPage('AccountPage')" menuClose>
+              <div style="color:rgba(255,255,255,.4);font-size: 12px">My account</div>
             </ion-col>
           </ion-row>
           
           <div ion-text color="white" style="margin-bottom: 20px">Welcome Paul Nderitu</div>
           <ion-list class="full-width">
             <div *ngFor="let p of pages">
-              <div menuClose *ngIf="activePage === p.title" (click)="openPage(p)" 
-              class="full-width active-tab" padding>
+              <div menuClose *ngIf="menuProvider.activePage === p.title" (click)="openPage(p)" 
+              class="full-width active-tab point_me" style="padding: 10px 10px 10px 70px">
                 <img src={{p.image}} style="height:50px"/>
                 <div>{{p.title}}</div>
               </div>
-              <div menuClose text-center *ngIf="activePage !== p.title" (click)="openPage(p)"
-              class="full-width" padding>
+              <div menuClose text-center *ngIf="menuProvider.activePage !== p.title" (click)="openPage(p)"
+              class="full-width point_me" padding>
                 <img src={{p.image}} style="height:50px"/>
                 <div ion-text color="white">{{p.title}}</div>
               </div>

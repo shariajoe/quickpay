@@ -1,0 +1,86 @@
+<!--
+  Generated template for the DashboardPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header mode="ios">
+  <ion-navbar id="quickgrad" style="position: relative">
+    <button ion-button icon-start color="mytran" class="no-shadow" (click)="openMenu()"> 
+	  <ion-icon name="md-menu"class="hidden-lg"></ion-icon>
+	  <div class="navbar-logo-outer bg-white">
+	  	<div class="navbar-logo-inner"></div>
+	  </div>
+	</button>
+	<ion-title color="white" text-capitalize class="absolute-center">Quickpay</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding >
+	<div class="center full-width full-height">
+		<div style="width:90%; max-width: 600px;">
+			<div>
+			</div>
+            <div style="background: url('assets/imgs/girl_joy.png');background-position: center;background-repeat: no-repeat;background-size: contain;height:150px;width:100%; ">
+            </div>
+			<div style="height:110px; width:100%; max-width: 600px; background: #414c61; border-radius:25px;margin:-1px auto 20px auto;padding:10px" class="center_vertical point_me" (click)="openPage('CarCarePage')">
+				<ion-row class="full-width" no-padding>
+					<ion-col col-4 class="center_vertical">
+						<div style="height:65px; width:65px;border-radius:50%;background: #fff" class="center">
+                            <img src="assets/imgs/car.png" style="height:40px"/>
+						</div>
+					</ion-col>
+                    <ion-col no-padding col-8 class="center_vertical">
+                    	<ion-row class="full-width center_vertical" no-padding>
+                    		<ion-col no-padding class="center_vertical" col-12 ion-text color="white" style="border-bottom: 1px solid #fff;padding:10px; font-weight:bold">
+                    			Car Care
+                    		</ion-col>
+                    		<ion-col no-padding class="center_vertical" col-12 ion-text color="white" style="font-size: 12px;padding:10px">
+                    			Services ranging from interior basic to engine clean and many more ...
+                    		</ion-col>
+                    	</ion-row>
+					</ion-col>
+				</ion-row>
+			</div>
+			<div style="height:110px; width:100%; max-width: 600px; background: #414c61; border-radius:25px;margin:20px auto;padding:10px" class="center_vertical point_me" (click)="openPage('CarpetKlinPage')">
+				<ion-row class="full-width" no-padding>
+					<ion-col col-4 class="center_vertical">
+						<div style="height:65px; width:65px;border-radius:50%;background: #fff" class="center">
+                            <img src="assets/imgs/carpet.png" style="height:40px"/>
+						</div>
+					</ion-col>
+                    <ion-col no-padding col-8 class="center_vertical">
+                    	<ion-row class="full-width center_vertical" no-padding>
+                    		<ion-col no-padding class="center_vertical" col-12 ion-text color="white" style="border-bottom: 1px solid #fff;padding:10px; font-weight:bold">
+                    			CarpetKlin
+                    		</ion-col>
+                    		<ion-col no-padding class="center_vertical" col-12 ion-text color="white" style="font-size: 12px;padding:10px">
+                    			Keep your carpets clean at affordable prices
+                    		</ion-col>
+                    	</ion-row>
+					</ion-col>
+				</ion-row>
+			</div>
+			<div style="height:110px; width:100%; max-width: 600px; background: #414c61; border-radius:25px;margin:20px auto;padding:10px" class="center_vertical point_me" (click)="openPage('HomePage')">
+				<ion-row class="full-width" no-padding>
+					<ion-col col-4 class="center_vertical">
+						<div style="height:65px; width:65px;border-radius:50%;background: #fff" class="center">
+                            <img src="assets/imgs/garbage.png" style="height:40px"/>
+						</div>
+					</ion-col>
+                    <ion-col no-padding col-8 class="center_vertical">
+                    	<ion-row class="full-width center_vertical" no-padding>
+                    		<ion-col no-padding class="center_vertical" col-12 ion-text color="white" style="border-bottom: 1px solid #fff;padding:10px; font-weight:bold">
+                    			Garbage Kollect
+                    		</ion-col>
+                    		<ion-col no-padding class="center_vertical" col-12 ion-text color="white" style="font-size: 12px;padding:10px">
+                    			Need git rid of waste? We got you
+                    		</ion-col>
+                    	</ion-row>
+					</ion-col>
+				</ion-row>
+			</div>
+		</div>
+	</div>
+
+</ion-content>

@@ -1,0 +1,63 @@
+<!--
+  Generated template for the AccountPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header mode="ios">
+  <ion-navbar id="quickgrad" style="position: relative">
+    <button ion-button icon-start color="mytran" class="no-shadow" (click)="openMenu()"> 
+	  <ion-icon name="md-menu"class="hidden-lg"></ion-icon>
+	  <div class="navbar-logo-outer bg-white">
+	  	<div class="navbar-logo-inner"></div>
+	  </div>
+	</button>
+	<ion-title color="white" text-capitalize class="absolute-center">My Account</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+	<div class="full-width full-height">
+		<ion-list class="full-width" style="max-width: 600px;">
+		    <ion-item>
+			    <ion-label color="quickgrey" floating>First Name</ion-label>
+			    <ion-input></ion-input>
+		    </ion-item>
+		     <ion-item>
+			    <ion-label color="quickgrey" floating>Last Name</ion-label>
+			    <ion-input></ion-input>
+		    </ion-item>
+		     <ion-item>
+			    <ion-label color="quickgrey" floating>Email Address</ion-label>
+			    <ion-input></ion-input>
+		    </ion-item>
+		     <ion-item>
+			    <ion-label color="quickgrey" floating>Phone Number</ion-label>
+			    <ion-input></ion-input>
+		    </ion-item>
+		    <ion-row no-padding>
+		    	<ion-col padding col-6 class="center">
+		    		<button ion-button color="quickgreen" block round mode="ios">
+		    			Sign Up
+		    		</button>
+		    	</ion-col>
+		    	<ion-col padding col-6 class="center">
+		    		<button ion-button color="quickgrey"  block round mode="ios">
+		    			Edit
+		    		</button>
+		    	</ion-col>
+		    </ion-row>
+		    <ion-row no-padding>
+		    	<ion-col padding col-12 class="center">
+		    		OR
+		    	</ion-col>
+		    	<ion-col padding col-12 class="center">
+		    		<button ion-button class="toolbar-background absolute-center" block round mode="ios" style="height:44px;max-width: 80%">
+		    			Add Shop
+		    		</button>
+		    	</ion-col>
+		    </ion-row>
+		</ion-list>
+	</div>
+
+</ion-content>

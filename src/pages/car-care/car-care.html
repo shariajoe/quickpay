@@ -5,87 +5,89 @@
   Ionic pages and navigation.
 -->
 <ion-header mode="ios">
-
-  <ion-navbar id="quickgrad">
-    <button ion-button icon-start color="mytran" class="no-shadow">
-	  <ion-icon name="md-menu"></ion-icon>
+  <ion-navbar id="quickgrad" style="position: relative">
+    <button ion-button icon-start color="mytran" class="no-shadow" (click)="openMenu()"> 
+	  <ion-icon name="md-menu"class="hidden-lg"></ion-icon>
 	  <div class="navbar-logo-outer bg-white">
 	  	<div class="navbar-logo-inner"></div>
 	  </div>
-	  <ion-title color="white" text-capitalize>Car Care</ion-title>
 	</button>
+	<ion-title color="white" text-capitalize class="absolute-center">Car Care</ion-title>
   </ion-navbar>
-
 </ion-header>
 
- #414c61,
-  quickgreen: #98b83a,
-<ion-content style="position: relative;">
-	<div class="center">
-	    <div  *ngIf="shopList" style="padding: 20px">
-	    	<ion-row no-padding style="max-width:450px;margin:0 auto;">
-	    		<ion-col no-padding class="center  no-margin">
-                   <ion-row no-padding class="full-width  no-margin">
-			    		<ion-col no-padding class="center no-margin">
-			    		</ion-col>
-			    		<ion-col no-padding class="center no-margin">
-                            <div style="height:50px;width:50px;border-radius: 50%;border:5px solid #98b83a" class="center">
-                            	<div style="color: #98b83a;font-weight: bold">1</div>
-                            </div>
-			    		</ion-col>
-			    		<ion-col no-padding class="center no-margin">
-                            <div style="width:100%;background:#98b83a;height:5px"></div>
-			    		</ion-col>
-			    	</ion-row>
-	    		</ion-col>
-	    		<ion-col no-padding class="center  no-margin">
-	    			<ion-row no-padding class="full-width  no-margin">
-			    		<ion-col no-padding class="center no-margin">
-                            <div style="width:100%;background:#414c61;height:5px"></div>
-			    		</ion-col>
-			    		<ion-col no-padding class="center no-margin">
-                            <div style="height:50px;width:50px;border-radius: 50%;border:5px solid #414c61" class="center">
-                            	<div style="color: #414c61;font-weight: bold">2</div>
-                            </div>
-			    		</ion-col>
-			    		<ion-col no-padding class="center no-margin">
-                            <div style="width:100%;background:#414c61;height:5px"></div>
-			    		</ion-col>
-			    	</ion-row>
-	    		</ion-col>
-	    		<ion-col no-padding class="center  no-margin">
-	    			<ion-row no-padding class="full-width  no-margin">
-			    		<ion-col no-padding class="center no-margin">
-                            <div style="width:100%;background:#414c61;height:5px"></div>
-			    		</ion-col>
-			    		<ion-col no-padding class="center no-margin">
-                            <div style="height:50px;width:50px;border-radius: 50%;border:5px solid #414c61" class="center">
-                            	<div style="color: #414c61;font-weight: bold">3</div>
-                            </div>
-			    		</ion-col>
-			    		<ion-col no-padding class="center no-margin">
-			    			<div style="width:100%;background:#414c61;height:5px"></div>
-			    		</ion-col>
-			    	</ion-row>
+<ion-content style="position: relative;" #pageTop>
+	<ion-row padding style="max-width:450px;margin:0 auto;">
+		<ion-col no-padding class="center  no-margin">
+           <ion-row no-padding class="full-width  no-margin">
+	    		<ion-col no-padding class="center no-margin">
 	    		</ion-col>
 	    		<ion-col no-padding class="center no-margin">
-	    			<ion-row no-padding class="full-width  no-margin">
-			    		<ion-col no-padding class="center no-margin">
-                            <div style="width:100%;background:#414c61;height:5px"></div>
-			    		</ion-col>
-			    		<ion-col no-padding class="center no-margin">
-                            <div style="height:50px;width:50px;border-radius: 50%;border:5px solid #414c61" class="center">
-                            	<div style="color: #414c61;font-weight: bold">4</div>
-                            </div>
-			    		</ion-col>
-			    		<ion-col no-padding class="center no-margin">
-			    		</ion-col>
-			    	</ion-row>
+                    <div style="height:50px;width:50px;border-radius: 50%;border:5px; border-style:solid;" 
+                    [ngStyle]="{'border-color': shopList?'#98b83a':'#98b83a'}" class="center">
+                    	<div style="color: #98b83a;font-weight: bold">1</div>
+                    </div>
+	    		</ion-col>
+	    		<ion-col no-padding class="center no-margin">
+                    <div style="width:100%;height:5px"
+                    [ngStyle]="{'background-color': '#98b83a'}"></div>
 	    		</ion-col>
 	    	</ion-row>
+		</ion-col>
+		<ion-col no-padding class="center  no-margin">
+			<ion-row no-padding class="full-width  no-margin">
+	    		<ion-col no-padding class="center no-margin">
+                    <div style="width:100%;height:5px" [ngStyle]="{'background-color': carList || serviceList || reviewList?'#98b83a':'#414c61'}"></div>
+	    		</ion-col>
+	    		<ion-col no-padding class="center no-margin">
+                    <div style="height:50px;width:50px;border-radius: 50%;border:5px; border-style:solid;" 
+                    [ngStyle]="{'border-color': carList || serviceList || reviewList?'#98b83a':'#414c61'}" class="center">
+                    	<div style="font-weight: bold" [ngStyle]="{'color': carList || serviceList || reviewList?'#98b83a':'#414c61'}">2</div>
+                    </div>
+	    		</ion-col>
+	    		<ion-col no-padding class="center no-margin">
+                    <div style="width:100%;height:5px" [ngStyle]="{'background-color': carList || serviceList || reviewList?'#98b83a':'#414c61'}"></div>
+	    		</ion-col>
+	    	</ion-row>
+		</ion-col>
+		<ion-col no-padding class="center  no-margin">
+			<ion-row no-padding class="full-width  no-margin">
+	    		<ion-col no-padding class="center no-margin">
+                    <div style="width:100%;height:5px" [ngStyle]="{'background-color': serviceList || reviewList?'#98b83a':'#414c61'}"></div>
+	    		</ion-col>
+	    		<ion-col no-padding class="center no-margin">
+                    <div style="height:50px;width:50px;border-radius: 50%;border:5px; border-style:solid;" 
+                    [ngStyle]="{'border-color': serviceList || reviewList?'#98b83a':'#414c61'}" class="center">
+                    	<div style="font-weight: bold" [ngStyle]="{'color': serviceList || reviewList?'#98b83a':'#414c61'}">3</div>
+                    </div>
+	    		</ion-col>
+	    		<ion-col no-padding class="center no-margin">
+	    			<div style="width:100%;height:5px" [ngStyle]="{'background-color': serviceList || reviewList?'#98b83a':'#414c61'}"></div>
+	    		</ion-col>
+	    	</ion-row>
+		</ion-col>
+		<ion-col no-padding class="center no-margin">
+			<ion-row no-padding class="full-width  no-margin">
+	    		<ion-col no-padding class="center no-margin">
+                    <div style="width:100%;height:5px" [ngStyle]="{'background-color': reviewList?'#98b83a':'#414c61'}"></div>
+	    		</ion-col>
+	    		<ion-col no-padding class="center no-margin">
+                    <div style="height:50px;width:50px;border-radius: 50%;border:5px; border-style:solid;" 
+                    [ngStyle]="{'border-color': reviewList?'#98b83a':'#414c61'}" class="center">
+                    	<div style="font-weight: bold" [ngStyle]="{'color': reviewList?'#98b83a':'#414c61'}">4</div>
+                    </div>
+	    		</ion-col>
+	    		<ion-col no-padding class="center no-margin">
+	    		</ion-col>
+	    	</ion-row>
+		</ion-col>
+	</ion-row>
+
+	<div class="center_horizontal">
+	    <div  *ngIf="shopList" padding>
 	    	<ion-row no-padding>
 				<ion-col no-padding col-lg-12 col-md-12 col-sm-12 col-12 text-center>
-					<div padding>
+					<div padding style="max-width: 600px;margin: 0px auto;">
 						<div ion-text color="quickgrey" style="font-size: 18px;margin-top: 20px"> Select Shop</div>
 						<ion-searchbar (ionInput)="getShops($event)"
 						 mode="md"
@@ -101,7 +103,7 @@
 						  <ion-list-header text-left>
 						    {{section.letter}}
 						  </ion-list-header>
-						  <ion-item text-center *ngFor="let shop of section.shops;let i=index" [ngStyle]="{'background-color': i%2 != 0?'transparent':'#80808010'}" no-lines (click)="setVisible('carList')">
+						  <ion-item text-center *ngFor="let shop of section.shops;let i=index" [ngStyle]="{'background-color': i%2 != 0?'transparent':'#F4F4F4'}" no-lines (click)="setVisible('carList')" class="point_me">
 						    {{ shop.name}}
 						  </ion-item>
 						</div>
@@ -109,72 +111,9 @@
 				</ion-col>
 			</ion-row>
 		</div>
-    </div>
-
-	
-    <div class="center">
+    
 	    <div *ngIf="carList" padding>
-	    	<ion-row no-padding style="max-width:450px;margin:0 auto;">
-	    		
-	    		<ion-col no-padding class="center  no-margin">
-                   <ion-row no-padding class="full-width  no-margin">
-			    		<ion-col no-padding class="center no-margin">
-			    		</ion-col>
-			    		<ion-col no-padding class="center no-margin">
-                            <div style="height:50px;width:50px;border-radius: 50%;border:5px solid #98b83a" class="center">
-                            	<div style="color: #98b83a;font-weight: bold">1</div>
-                            </div>
-			    		</ion-col>
-			    		<ion-col no-padding class="center no-margin">
-                            <div style="width:100%;background:#98b83a;height:5px"></div>
-			    		</ion-col>
-			    	</ion-row>
-	    		</ion-col>
-	    		<ion-col no-padding class="center  no-margin">
-                   <ion-row no-padding class="full-width  no-margin">
-			    		<ion-col no-padding class="center no-margin">
-			    			<div style="width:100%;background:#98b83a;height:5px"></div>
-			    		</ion-col>
-			    		<ion-col no-padding class="center no-margin">
-                            <div style="height:50px;width:50px;border-radius: 50%;border:5px solid #98b83a" class="center">
-                            	<div style="color: #98b83a;font-weight: bold">2</div>
-                            </div>
-			    		</ion-col>
-			    		<ion-col no-padding class="center no-margin">
-                            <div style="width:100%;background:#98b83a;height:5px"></div>
-			    		</ion-col>
-			    	</ion-row>
-	    		</ion-col>
-	    		<ion-col no-padding class="center  no-margin">
-	    			<ion-row no-padding class="full-width  no-margin">
-			    		<ion-col no-padding class="center no-margin">
-                            <div style="width:100%;background:#414c61;height:5px"></div>
-			    		</ion-col>
-			    		<ion-col no-padding class="center no-margin">
-                            <div style="height:50px;width:50px;border-radius: 50%;border:5px solid #414c61" class="center">
-                            	<div style="color: #414c61;font-weight: bold">3</div>
-                            </div>
-			    		</ion-col>
-			    		<ion-col no-padding class="center no-margin">
-			    			<div style="width:100%;background:#414c61;height:5px"></div>
-			    		</ion-col>
-			    	</ion-row>
-	    		</ion-col>
-	    		<ion-col no-padding class="center no-margin">
-	    			<ion-row no-padding class="full-width  no-margin">
-			    		<ion-col no-padding class="center no-margin">
-                            <div style="width:100%;background:#414c61;height:5px"></div>
-			    		</ion-col>
-			    		<ion-col no-padding class="center no-margin">
-                            <div style="height:50px;width:50px;border-radius: 50%;border:5px solid #414c61" class="center">
-                            	<div style="color: #414c61;font-weight: bold">4</div>
-                            </div>
-			    		</ion-col>
-			    		<ion-col no-padding class="center no-margin">
-			    		</ion-col>
-			    	</ion-row>
-	    		</ion-col>
-	    	</ion-row>
+	    	
 			<ion-row no-padding>
 				<ion-col no-padding col-lg-12 col-md-12 col-sm-12 col-12 text-center>
 					<div ion-text color="quickgrey" style="font-size: 18px;margin-top: 20px;margin-bottom: 20px;margin-left: -20px;"> 
@@ -183,79 +122,15 @@
 					</div>
 				</ion-col>
 				<ion-col no-padding col-lg-3 col-md-4 col-sm-6 col-6 *ngFor="let type of vehicleTypes;">
-					<ion-card style="height:160px;margin:20px" class="no-shadow" text-center (click)="setVisible('serviceList')">
+					<ion-card style="height:160px;margin:20px" class="no-shadow point_me" text-center (click)="setVisible('serviceList')">
 						<div style="height:120px;width:120px;background-repeat: no-repeat;background-size: contain;background-position: center; margin:0px auto" [ngStyle]="{'background-image': 'url('+type.image+')'}"></div>
 						<div text-center class="full-width">{{type.name}}</div>
 					</ion-card>
 				</ion-col>
 			</ion-row>
 		</div>
-	</div>
-
-
-	<div class="center">
+	
 	    <div  *ngIf="serviceList" padding class="full-width">
-	    	<ion-row no-padding style="max-width:450px;margin:0 auto;">
-	    		
-	    		<ion-col no-padding class="center  no-margin">
-                   <ion-row no-padding class="full-width  no-margin">
-			    		<ion-col no-padding class="center no-margin">
-			    		</ion-col>
-			    		<ion-col no-padding class="center no-margin">
-                            <div style="height:50px;width:50px;border-radius: 50%;border:5px solid #98b83a" class="center">
-                            	<div style="color: #98b83a;font-weight: bold">1</div>
-                            </div>
-			    		</ion-col>
-			    		<ion-col no-padding class="center no-margin">
-                            <div style="width:100%;background:#98b83a;height:5px"></div>
-			    		</ion-col>
-			    	</ion-row>
-	    		</ion-col>
-	    		<ion-col no-padding class="center  no-margin">
-                   <ion-row no-padding class="full-width  no-margin">
-			    		<ion-col no-padding class="center no-margin">
-			    			<div style="width:100%;background:#98b83a;height:5px"></div>
-			    		</ion-col>
-			    		<ion-col no-padding class="center no-margin">
-                            <div style="height:50px;width:50px;border-radius: 50%;border:5px solid #98b83a" class="center">
-                            	<div style="color: #98b83a;font-weight: bold">2</div>
-                            </div>
-			    		</ion-col>
-			    		<ion-col no-padding class="center no-margin">
-                            <div style="width:100%;background:#98b83a;height:5px"></div>
-			    		</ion-col>
-			    	</ion-row>
-	    		</ion-col>
-	    		<ion-col no-padding class="center  no-margin">
-                   <ion-row no-padding class="full-width  no-margin">
-			    		<ion-col no-padding class="center no-margin">
-			    			<div style="width:100%;background:#98b83a;height:5px"></div>
-			    		</ion-col>
-			    		<ion-col no-padding class="center no-margin">
-                            <div style="height:50px;width:50px;border-radius: 50%;border:5px solid #98b83a" class="center">
-                            	<div style="color: #98b83a;font-weight: bold">3</div>
-                            </div>
-			    		</ion-col>
-			    		<ion-col no-padding class="center no-margin">
-                            <div style="width:100%;background:#98b83a;height:5px"></div>
-			    		</ion-col>
-			    	</ion-row>
-	    		</ion-col>
-	    		<ion-col no-padding class="center no-margin">
-	    			<ion-row no-padding class="full-width  no-margin">
-			    		<ion-col no-padding class="center no-margin">
-                            <div style="width:100%;background:#414c61;height:5px"></div>
-			    		</ion-col>
-			    		<ion-col no-padding class="center no-margin">
-                            <div style="height:50px;width:50px;border-radius: 50%;border:5px solid #414c61" class="center">
-                            	<div style="color: #414c61;font-weight: bold">4</div>
-                            </div>
-			    		</ion-col>
-			    		<ion-col no-padding class="center no-margin">
-			    		</ion-col>
-			    	</ion-row>
-	    		</ion-col>
-	    	</ion-row>
 	    	<ion-row no-padding>
 	    		<ion-col no-padding col-lg-12 col-md-12 col-sm-12 col-12 text-center>
 					<div ion-text color="quickgrey" style="font-size: 18px;margin-top: 20px;margin-bottom: 20px;margin-left: -20px;"> 
@@ -266,14 +141,14 @@
 				<ion-col no-padding col-lg-12 col-md-12 col-sm-12 col-12 text-center style="margin-bottom: 100px">
 					<ion-list style="padding:0px 20px 0px 20px; max-width: 600px;margin: 0px auto;">						
 						<ion-row no-padding align-items-center *ngFor="let service of services;let i=index" style="border-bottom:1px solid #ddd"
-						[ngStyle]="{'background-color': i%2 != 0?'transparent':'#80808010'}"> 
-							<ion-col no-padding col-8 class="">
+						[ngStyle]="{'background-color': i%2 != 0?'transparent':'#F4F4F4'}"> 
+							<ion-col no-padding col-8 class="point_me">
 								<ion-item no-lines text-wrap color="mytran">
 									<ion-label color="quickgrey">{{service.name}}</ion-label>
 						            <ion-checkbox color="quickgreen" checked="false"></ion-checkbox>
 						        </ion-item>
 							</ion-col>
-							<ion-col no-padding col-4 text-right style="padding-right: 16px">
+							<ion-col no-padding col-4 text-right style="padding-right: 16px" class="point_me">
 								<div ion-text color="quickgrey">Ksh {{service.price}}</div>
 							</ion-col>
 						</ion-row>
@@ -281,11 +156,28 @@
 				</ion-col>
 			</ion-row>
 	    </div>
+	
+	    <div  *ngIf="reviewList" padding class="full-width">
+	    	<ion-row no-padding>
+	    		<ion-col no-padding col-lg-12 col-md-12 col-sm-12 col-12 text-center>
+					<div ion-text color="quickgrey" style="font-size: 18px;margin-top: 20px;margin-bottom: 20px;margin-left: -20px;"> 
+						<ion-icon name="ios-arrow-back" style="margin-right: 20px;font-size: 18px" (click)="setVisible('carList')"></ion-icon>
+						Confirm Payment
+					</div>
+				</ion-col>
+				<ion-col no-padding col-lg-12 col-md-12 col-sm-12 col-12 text-center style="height: 305px;position:relative;">
+					<div style="height: 10px;border-radius:5px;width:100%;background:#414c61;width: 300px;" class="center_horizontal"></div>
+
+					<div class="receipt"  [ngClass]="slide_down?'slide_down':''">
+					</div>
+				</ion-col>
+			</ion-row>
+	    </div>
 	</div>
 
 </ion-content>
 <ion-footer no-border class="hide-on-keyboard-open bg-white" padding *ngIf="serviceList">
-    <button ion-button block (click)="submit(objectblock)" text-capitalize color="quickgreen" mode="ios" round>
+    <button ion-button block (click)="setVisible('reviewList')" text-capitalize color="quickgreen" mode="ios" round>
       Proceed
     </button>
 </ion-footer>
