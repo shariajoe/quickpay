@@ -33,6 +33,7 @@ export class CarCarePage {
   reviewList: boolean = false;
   slide_down: boolean = false;
   services: any = [];
+  paymentObj: any = {shop_name:"",car_type_img:"",car_type_name:"", service_list:[], total:0};
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public menuCtrl: MenuController) {
     this.shops = [
@@ -65,16 +66,16 @@ export class CarCarePage {
     {name:"Others",image:"assets/imgs/cars/saloon.png"}];
 
 
-    this.services = [{name:"Exterior Basic",price:1000},
-    {name:"Interior Basic",price:2000},
-    {name:"Engine Clean",price:4500},
-    {name:"Under Wash",price:500},
-    {name:"Vacuum Interior",price:500},
-    {name:"Upholstery Clean",price:500},
-    {name:"Interior Polish",price:600},
-    {name:"Tire Polish",price:2000},
-    {name:"Buffing",price:3000},
-    {name:"Body Wax",price:3000}];
+    this.services = [{name:"Exterior Basic",price:1000,checked: false },
+    {name:"Interior Basic",price:2000,checked: false },
+    {name:"Engine Clean",price:4500,checked: false },
+    {name:"Under Wash",price:500,checked: false },
+    {name:"Vacuum Interior",price:500,checked: false },
+    {name:"Upholstery Clean",price:500,checked: false },
+    {name:"Interior Polish",price:600,checked: false },
+    {name:"Tire Polish",price:2000,checked: false },
+    {name:"Buffing",price:3000,checked: false },
+    {name:"Body Wax",price:3000,checked: false }];
 
     this.allShops = this.shops;
 
@@ -109,41 +110,63 @@ export class CarCarePage {
 	 this.menuCtrl.open();
   }
 
-  setVisible(list){
+  setVisible(list,payload){
   	 this.pageScroller();
      if(list=="carList"){
+        if(payload){
+	        this.paymentObj.shop_name = payload.name;
+	    }
         this.shopList = false;
         this.serviceList = false;
         this.carList = true;
         this.reviewList = false;
 
      } else if(list=="shopList"){
+
      	this.shopList = true;
         this.serviceList = false;
         this.carList = false;
         this.reviewList = false;
 
      } else if(list=="serviceList"){
+        if(payload){
+	     	this.paymentObj.car_type_img = payload.image;
+	        this.paymentObj.car_type_name = payload.name;
+	    }
      	this.shopList = false;
         this.serviceList = true;
         this.carList = false;
         this.reviewList = false;
      }
      else if(list=="reviewList"){
-     	this.shopList = false;
-        this.serviceList = false;
-        this.carList = false;
-        this.reviewList = true;
-        let that = this;
-        setTimeout(()=>{
-        	 that.slide_down = true;
-        },300);
+     	let service_list = [];
+     	let total = 0;
+     	let count = 0;
+     	this.services.forEach((service)=>{
+            if(service.checked){
+            	count++;
+                service_list.push(service);
+                total += service.price;
+            }
+     	})
+     	if(count){
+		    this.paymentObj.service_list = service_list;
+		    this.paymentObj.total = total;
+
+	     	this.shopList = false;
+	        this.serviceList = false;
+	        this.carList = false;
+	        this.reviewList = true;
+	        let that = this;
+	        setTimeout(()=>{
+	        	 that.slide_down = true;
+	        },300);
+	    }
      }
 
   }
 
   pageScroller(){
-    //scroll to page top
     this.pageTop.scrollToTop();
   }
 
@@ -163,8 +186,6 @@ export class CarCarePage {
   }
 
   onSearchInput(){
-
-    
     if(this.searchTerm.length >= 3){
       this.searching = true;
     }

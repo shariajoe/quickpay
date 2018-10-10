@@ -13,8 +13,6 @@ export class MenuProvider {
 
   constructor() {
     console.log('Hello MenuProvider Provider');
-    this.activePage = localStorage.getItem("activePage")?localStorage.getItem("activePage"):"";
-    
     
   }
 

@@ -28,7 +28,7 @@ export class DashboardPage {
   }
 
   openPage(page){
-  	if(page === "HomePage"){
+  	if(page === "DashboardPage"){
   		this.menuProvider.activePage = "Home";
   	} else if(page === "CarCarePage"){
   		this.menuProvider.activePage = "Car Care";

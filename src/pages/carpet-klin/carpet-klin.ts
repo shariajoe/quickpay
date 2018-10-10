@@ -33,7 +33,7 @@ export class CarpetKlinPage {
   services: any = [];
   carpetType: string = "";
   slide_down: boolean = false;
-
+  paymentObj: any = {shop_name:"", service_list:[], total:0};
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public menuCtrl: MenuController) {
     this.shops = [
@@ -53,10 +53,10 @@ export class CarpetKlinPage {
     {name:"Okoth Obado Wash"},
     {name:"Mwajeu Car Wash"}];
 
-    this.services = [{name:"Doormat",price:500},
-    {name:"Small",price:500},
-    {name:"Big",price:2000},
-    {name:"Large",price:2500}];
+    this.services = [{name:"Doormat",price:500,checked: false },
+    {name:"Small",price:500,checked: false },
+    {name:"Big",price:2000,checked: false },
+    {name:"Large",price:2500,checked: false }];
 
     this.allShops = this.shops;
 
@@ -87,24 +87,43 @@ export class CarpetKlinPage {
 
   }
 
-  setVisible(list){
+  setVisible(list, payload){
      if(list=="reviewList"){
-        this.shopList = false;
-        this.serviceList = false;
-        this.reviewList = true;
-        let that = this;
-        setTimeout(()=>{
-        	 that.slide_down = true;
-        },300);
+     	let service_list = [];
+     	let total = 0;
+     	let count = 0;
+        this.services.forEach((service)=>{
+            if(service.checked){
+            	count++;
+                service_list.push(service);
+                total += service.price;
+            }
+     	})
+     	if(count){
+		    this.paymentObj.service_list = service_list;
+		    this.paymentObj.total = total;
+
+	     	this.shopList = false;
+	        this.serviceList = false;
+	        this.reviewList = true;
+	        let that = this;
+	        setTimeout(()=>{
+	        	 that.slide_down = true;
+	        },300);
+	    }
      } else if(list=="shopList"){
      	this.shopList = true;
         this.serviceList = false;
         this.reviewList = false;
 
      } else if(list=="serviceList"){
+     	if(payload){
+	        this.paymentObj.shop_name = payload.name;
+	    }
      	this.shopList = false;
         this.serviceList = true;
         this.reviewList = false;
+
      }
   }
 

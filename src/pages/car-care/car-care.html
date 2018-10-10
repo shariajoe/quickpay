@@ -103,7 +103,7 @@
 						  <ion-list-header text-left>
 						    {{section.letter}}
 						  </ion-list-header>
-						  <ion-item text-center *ngFor="let shop of section.shops;let i=index" [ngStyle]="{'background-color': i%2 != 0?'transparent':'#F4F4F4'}" no-lines (click)="setVisible('carList')" class="point_me">
+						  <ion-item *ngFor="let shop of section.shops;let i=index" [ngStyle]="{'background-color': i%2 != 0?'transparent':'#F4F4F4'}" (click)="setVisible('carList',shop)" no-lines class="point_me">
 						    {{ shop.name}}
 						  </ion-item>
 						</div>
@@ -122,7 +122,7 @@
 					</div>
 				</ion-col>
 				<ion-col no-padding col-lg-3 col-md-4 col-sm-6 col-6 *ngFor="let type of vehicleTypes;">
-					<ion-card style="height:160px;margin:20px" class="no-shadow point_me" text-center (click)="setVisible('serviceList')">
+					<ion-card style="height:160px;margin:20px" class="no-shadow point_me" text-center (click)="setVisible('serviceList',type)">
 						<div style="height:120px;width:120px;background-repeat: no-repeat;background-size: contain;background-position: center; margin:0px auto" [ngStyle]="{'background-image': 'url('+type.image+')'}"></div>
 						<div text-center class="full-width">{{type.name}}</div>
 					</ion-card>
@@ -142,14 +142,16 @@
 					<ion-list style="padding:0px 20px 0px 20px; max-width: 600px;margin: 0px auto;">						
 						<ion-row no-padding align-items-center *ngFor="let service of services;let i=index" style="border-bottom:1px solid #ddd"
 						[ngStyle]="{'background-color': i%2 != 0?'transparent':'#F4F4F4'}"> 
-							<ion-col no-padding col-8 class="point_me">
+							<ion-col no-padding col-12 class="point_me">
 								<ion-item no-lines text-wrap color="mytran">
-									<ion-label color="quickgrey">{{service.name}}</ion-label>
-						            <ion-checkbox color="quickgreen" checked="false"></ion-checkbox>
+									<div item-left class="center">
+										<ion-checkbox color="quickgreen" [(ngModel)]="service.checked"></ion-checkbox>
+										<ion-label color="quickgrey">{{service.name}}</ion-label>
+						            </div>
+						            <div item-right>
+										<div ion-text color="quickgrey" style="font-size:14px">Ksh {{service.price}}</div>
+						            </div>
 						        </ion-item>
-							</ion-col>
-							<ion-col no-padding col-4 text-right style="padding-right: 16px" class="point_me">
-								<div ion-text color="quickgrey">Ksh {{service.price}}</div>
 							</ion-col>
 						</ion-row>
 					</ion-list>
@@ -161,23 +163,94 @@
 	    	<ion-row no-padding>
 	    		<ion-col no-padding col-lg-12 col-md-12 col-sm-12 col-12 text-center>
 					<div ion-text color="quickgrey" style="font-size: 18px;margin-top: 20px;margin-bottom: 20px;margin-left: -20px;"> 
-						<ion-icon name="ios-arrow-back" style="margin-right: 20px;font-size: 18px" (click)="setVisible('carList')"></ion-icon>
+						<ion-icon name="ios-arrow-back" style="margin-right: 20px;font-size: 18px" (click)="setVisible('serviceList')"></ion-icon>
 						Confirm Payment
 					</div>
 				</ion-col>
-				<ion-col no-padding col-lg-12 col-md-12 col-sm-12 col-12 text-center style="height: 305px;position:relative;">
+				<ion-col no-padding col-lg-12 col-md-12 col-sm-12 col-12 text-center style="height: 605px;position:relative;" class="hidden-xs">
+					<div style="height: 10px;border-radius:5px;width:100%;background:#414c61;width: 600px;" class="center_horizontal"></div>
+
+					<div class="receipt"  [ngClass]="slide_down?'slide_down':''" text-center style="padding:10px;margin-bottom: 100px">
+						<div style="margin-top: 10px;margin-bottom: 10px">{{paymentObj.shop_name}}</div>
+					    <ion-card style="height:140px;margin:5px auto" class="no-shadow point_me" text-center (click)="setVisible('serviceList',type)">
+							<div style="height:120px;width:120px;background-repeat: no-repeat;background-size: contain;background-position: center; margin:0px auto" [ngStyle]="{'background-image': 'url('+paymentObj.car_type_img+')'}"></div>
+							<div text-center class="full-width">{{paymentObj.car_type_name}}</div>
+						</ion-card>
+						<ion-row no-padding  style="border:1px solid #ddd;">
+							<ion-col col-6 no-padding ion-text color="quickgrey" class="no-margin" style="border-bottom:1px solid #ddd;padding:10px" text-left>
+								Service
+							</ion-col>
+	                        <ion-col col-6 no-padding ion-text color="quickgrey" class="no-margin" style="border-bottom:1px solid #ddd;
+	                        padding:10px" text-right>
+	                        	Price
+							</ion-col>
+							<ion-row class="full-width" *ngFor="let service of paymentObj.service_list" style="border-bottom:1px solid #ddd;">
+								<ion-col col-6 no-padding style="font-size: 12px;padding:10px" text-left>
+									{{service.name}}
+								</ion-col>
+								<ion-col col-6 no-padding style="font-size: 12px;padding:10px" text-right>
+									Ksh {{service.price}}
+								</ion-col>
+							</ion-row>
+							<ion-row class="full-width" style="border-bottom:1px solid #ddd;">
+								<ion-col col-6 no-padding style="padding:10px;font-size: 17px;" text-left ion-text color="quickgreen">
+									TOTAL
+								</ion-col>
+								<ion-col col-6 no-padding style="padding:10px;font-size: 17px;" text-right ion-text color="quickgreen">
+									Ksh {{paymentObj.total}}
+								</ion-col>
+							</ion-row>
+						</ion-row>
+					</div>
+					
+				</ion-col>
+				<ion-col no-padding col-lg-12 col-md-12 col-sm-12 col-12 text-center style="height: 305px;position:relative;" class="hidden-lg">
 					<div style="height: 10px;border-radius:5px;width:100%;background:#414c61;width: 300px;" class="center_horizontal"></div>
 
-					<div class="receipt"  [ngClass]="slide_down?'slide_down':''">
+					<div class="receipt"  [ngClass]="slide_down?'slide_down':''" text-center style="padding:10px;margin-bottom: 100px">
+						<div style="margin-top: 10px;margin-bottom: 10px">{{paymentObj.shop_name}}</div>
+					    <ion-card style="height:140px;margin:5px auto" class="no-shadow point_me" text-center (click)="setVisible('serviceList',type)">
+							<div style="height:120px;width:120px;background-repeat: no-repeat;background-size: contain;background-position: center; margin:0px auto" [ngStyle]="{'background-image': 'url('+paymentObj.car_type_img+')'}"></div>
+							<div text-center class="full-width">{{paymentObj.car_type_name}}</div>
+						</ion-card>
+						<ion-row no-padding  style="border:1px solid #ddd;">
+							<ion-col col-6 no-padding ion-text color="quickgrey" class="no-margin" style="border-bottom:1px solid #ddd;padding:10px" text-left>
+								Service
+							</ion-col>
+	                        <ion-col col-6 no-padding ion-text color="quickgrey" class="no-margin" style="border-bottom:1px solid #ddd;
+	                        padding:10px" text-right>
+	                        	Price
+							</ion-col>
+							<ion-row class="full-width" *ngFor="let service of paymentObj.service_list" style="border-bottom:1px solid #ddd;">
+								<ion-col col-6 no-padding style="font-size: 12px;padding:10px" text-left>
+									{{service.name}}
+								</ion-col>
+								<ion-col col-6 no-padding style="font-size: 12px;padding:10px" text-right>
+									Ksh {{service.price}}
+								</ion-col>
+							</ion-row>
+							<ion-row class="full-width" style="border-bottom:1px solid #ddd;">
+								<ion-col col-6 no-padding style="padding:10px;font-size: 17px;" text-left ion-text color="quickgreen">
+									TOTAL
+								</ion-col>
+								<ion-col col-6 no-padding style="padding:10px;font-size: 17px;" text-right ion-text color="quickgreen">
+									Ksh {{paymentObj.total}}
+								</ion-col>
+							</ion-row>
+						</ion-row>
 					</div>
+					
 				</ion-col>
 			</ion-row>
 	    </div>
 	</div>
 
 </ion-content>
-<ion-footer no-border class="hide-on-keyboard-open bg-white" padding *ngIf="serviceList">
-    <button ion-button block (click)="setVisible('reviewList')" text-capitalize color="quickgreen" mode="ios" round>
+<ion-footer no-border class="hide-on-keyboard-open bg-white" padding *ngIf="serviceList || reviewList">
+    <button ion-button block  *ngIf="serviceList" (click)="setVisible('reviewList')" text-capitalize color="quickgreen" mode="ios" round style="max-width: 600px;margin:0px auto;">
       Proceed
+    </button>
+    <button ion-button block  *ngIf="reviewList" text-capitalize color="quickgreen" mode="ios" round style="max-width: 600px;margin:0px auto;">
+      Pay
     </button>
 </ion-footer>

@@ -18,9 +18,6 @@ export class MyApp {
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, 
     public menuCtrl: MenuController, public menuProvider: MenuProvider) {
     this.initializeApp();
-    
-
-    console.log(this.rootPage)
 
     // used for an example of ngFor and navigation
     this.pages = [
@@ -50,7 +47,13 @@ export class MyApp {
   }
 
   openNonMenuPage(page) {
-    this.nav.setRoot(page);
+    if(page === "HomePage"){
+      this.menuProvider.activePage = "";
+      this.nav.setRoot(page);
+    }
+    else{
+      this.nav.setRoot(page);
+    }
   }
 
   onChangeActive(page){
