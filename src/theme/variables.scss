@@ -52,6 +52,12 @@ $split-pane-ios-side-max-width: 325px;
 $split-pane-md-side-max-width: 325px;
 $split-pane-ios-side-min-width: 230px;
 $split-pane-md-side-min-width: 230px;
+$toggle-ios-width: 300px;
+$toggle-ios-transition-duration: 1000ms;
+$toggle-ios-height: 45px;
+$toggle-ios-border-color-off: color($colors,quickgrey);
+$toggle-ios-background-color-off: color($colors,quickgrey);
+$toggle-ios-handle-background-color: color($colors,white);
 
 // App iOS Variables
 // --------------------------------------------------

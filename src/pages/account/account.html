@@ -12,7 +12,7 @@
 	  	<div class="navbar-logo-inner"></div>
 	  </div>
 	</button>
-	<ion-title color="white" text-capitalize class="absolute-center">My Account</ion-title>
+	<ion-title color="white" text-capitalize class="absolute-center">My account</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -20,25 +20,29 @@
 	<div class="full-width full-height">
 		<ion-list class="full-width" style="max-width: 600px;margin:0px auto;">
 		    <ion-item>
-			    <ion-label color="quickgrey" floating>First Name</ion-label>
+			    <ion-label color="quickgrey" floating>First name</ion-label>
+			    <ion-input></ion-input>
+		    </ion-item>
+		    <ion-item>
+			    <ion-label color="quickgrey" floating>Last name</ion-label>
+			    <ion-input></ion-input>
+		    </ion-item>
+		    <ion-item>
+			    <ion-label color="quickgrey" floating>Username</ion-label>
+			    <ion-input></ion-input>
+		    </ion-item>
+		    <ion-item>
+			    <ion-label color="quickgrey" floating>Email address</ion-label>
 			    <ion-input></ion-input>
 		    </ion-item>
 		     <ion-item>
-			    <ion-label color="quickgrey" floating>Last Name</ion-label>
-			    <ion-input></ion-input>
-		    </ion-item>
-		     <ion-item>
-			    <ion-label color="quickgrey" floating>Email Address</ion-label>
-			    <ion-input></ion-input>
-		    </ion-item>
-		     <ion-item>
-			    <ion-label color="quickgrey" floating>Phone Number</ion-label>
+			    <ion-label color="quickgrey" floating>Phone number</ion-label>
 			    <ion-input></ion-input>
 		    </ion-item>
 		    <ion-row no-padding>
 		    	<ion-col padding col-6 class="center">
 		    		<button ion-button color="quickgreen" block round mode="ios">
-		    			Sign Up
+		    			Sign up
 		    		</button>
 		    	</ion-col>
 		    	<ion-col padding col-6 class="center">
@@ -52,8 +56,9 @@
 		    		OR
 		    	</ion-col>
 		    	<ion-col padding col-12 class="center">
-		    		<button ion-button class="toolbar-background absolute-center" block round mode="ios" style="height:44px;max-width: 80%">
-		    			Add Shop
+		    		<button ion-button class="grad-background absolute-center" block round mode="ios" style="height:44px;max-width: 80%"
+		    		(click)="openPage('CreateShopPage')">
+		    			Create shop
 		    		</button>
 		    	</ion-col>
 		    </ion-row>

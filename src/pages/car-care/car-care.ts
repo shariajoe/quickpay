@@ -57,12 +57,12 @@ export class CarCarePage {
     this.vehicleTypes =[{name:"Saloon",image:"assets/imgs/cars/saloon-i.png"},
     {name:"Station Wagon",image:"assets/imgs/cars/station-wagon.png"},
     {name:"Single Cabin Pickup",image:"assets/imgs/cars/single-cab-i.png"},
-    {name:"Double Cabin Pickup",image:"assets/imgs/cars/double-cab-i.jpg"},
-    {name:"SUV",image:"assets/imgs/cars/rangerover.jpg"},
-    {name:"PSV",image:"assets/imgs/cars/psv.jpg"},
-    {name:"Lorry",image:"assets/imgs/cars/lorry.jpeg"},
+    {name:"Double Cabin Pickup",image:"assets/imgs/cars/double-cab-i.png"},
+    {name:"SUV",image:"assets/imgs/cars/rangerover.png"},
+    {name:"PSV",image:"assets/imgs/cars/psv.png"},
+    {name:"Lorry",image:"assets/imgs/cars/lorry.png"},
     {name:"Trailer",image:"assets/imgs/cars/trailer.png"},
-    {name:"Heavy Machinery",image:"assets/imgs/cars/tractor.jpg"},
+    {name:"Heavy Machinery",image:"assets/imgs/cars/tractor.png"},
     {name:"Others",image:"assets/imgs/cars/saloon.png"}];
 
 

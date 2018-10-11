@@ -103,7 +103,7 @@
 						  <ion-list-header text-left>
 						    {{section.letter}}
 						  </ion-list-header>
-						  <ion-item *ngFor="let shop of section.shops;let i=index" [ngStyle]="{'background-color': i%2 != 0?'transparent':'#F4F4F4'}" (click)="setVisible('carList',shop)" no-lines class="point_me">
+						  <ion-item *ngFor="let shop of section.shops;let i=index" [ngStyle]="{'background-color': i%2 != 0?'rgba(152,184,58,0.2)':'rgba(65,76,97,0.2)'}" (click)="setVisible('carList',shop)" no-lines class="point_me">
 						    {{ shop.name}}
 						  </ion-item>
 						</div>
@@ -141,7 +141,7 @@
 				<ion-col no-padding col-lg-12 col-md-12 col-sm-12 col-12 text-center style="margin-bottom: 100px">
 					<ion-list style="padding:0px 20px 0px 20px; max-width: 600px;margin: 0px auto;">						
 						<ion-row no-padding align-items-center *ngFor="let service of services;let i=index" style="border-bottom:1px solid #ddd"
-						[ngStyle]="{'background-color': i%2 != 0?'transparent':'#F4F4F4'}"> 
+						[ngStyle]="{'background-color': i%2 != 0?'rgba(152,184,58,0.2)':'rgba(65,76,97,0.2)'}"> 
 							<ion-col no-padding col-12 class="point_me">
 								<ion-item no-lines text-wrap color="mytran">
 									<div item-left class="center">
@@ -168,7 +168,7 @@
 					</div>
 				</ion-col>
 				<ion-col no-padding col-lg-12 col-md-12 col-sm-12 col-12 text-center style="height: 605px;position:relative;" class="hidden-xs">
-					<div style="height: 10px;border-radius:5px;width:100%;background:#414c61;width: 600px;" class="center_horizontal"></div>
+					<div style="height: 10px;border-radius:5px;background:#414c61;width: 600px;" class="center_horizontal"></div>
 
 					<div class="receipt"  [ngClass]="slide_down?'slide_down':''" text-center style="padding:10px;margin-bottom: 100px">
 						<div style="margin-top: 10px;margin-bottom: 10px">{{paymentObj.shop_name}}</div>
@@ -205,7 +205,7 @@
 					
 				</ion-col>
 				<ion-col no-padding col-lg-12 col-md-12 col-sm-12 col-12 text-center style="height: 305px;position:relative;" class="hidden-lg">
-					<div style="height: 10px;border-radius:5px;width:100%;background:#414c61;width: 300px;" class="center_horizontal"></div>
+					<div style="height: 10px;border-radius:5px;background:#414c61;width: 300px;" class="center_horizontal"></div>
 
 					<div class="receipt"  [ngClass]="slide_down?'slide_down':''" text-center style="padding:10px;margin-bottom: 100px">
 						<div style="margin-top: 10px;margin-bottom: 10px">{{paymentObj.shop_name}}</div>
@@ -250,7 +250,10 @@
     <button ion-button block  *ngIf="serviceList" (click)="setVisible('reviewList')" text-capitalize color="quickgreen" mode="ios" round style="max-width: 600px;margin:0px auto;">
       Proceed
     </button>
-    <button ion-button block  *ngIf="reviewList" text-capitalize color="quickgreen" mode="ios" round style="max-width: 600px;margin:0px auto;">
-      Pay
-    </button>
+    <ion-item no-lines *ngIf="reviewList" style="max-width: 320px;margin:0px auto;">
+    	<div item-left class="center" style="position: relative">
+	        <ion-toggle [(ngModel)]="sausage" color="quickgreen" mode="ios"></ion-toggle>
+	        <div style="color:#fff;" class="absolute-center">Swipe left to pay</div>
+	    </div>
+    </ion-item>
 </ion-footer>

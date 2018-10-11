@@ -1,0 +1,40 @@
+<!--
+  Generated template for the CreateShopPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header mode="ios">
+  <ion-navbar hideBackButton id="quickgrad" style="position: relative">
+    <button ion-button icon-start color="mytran" class="no-shadow" (click)="navCtrl.pop()"> 
+	  <ion-icon name="ios-arrow-back" class="hidden-lg"></ion-icon>
+	  <div class="navbar-logo-outer bg-white">
+	  	<div class="navbar-logo-inner"></div>
+	  </div>
+	</button>
+	<ion-title color="white" text-capitalize class="absolute-center">Create shop</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <div class="full-width full-height center">
+		<ion-list class="full-width" style="max-width: 600px;margin:0px auto;">
+		    <ion-item>
+			    <ion-label color="quickgrey" floating>Username</ion-label>
+			    <ion-input></ion-input>
+		    </ion-item>
+		     <ion-item>
+			    <ion-label color="quickgrey" floating>Password</ion-label>
+			    <ion-input></ion-input>
+		    </ion-item>
+		    <ion-row padding>
+		    	<ion-col padding col-12 class="center">
+		    		<button ion-button class="grad-background absolute-center" block round mode="ios" style="height:44px;max-width: 80%"
+		    		(click)="openPage('ShopFormPage')">
+		    			Login to create shop
+		    		</button>
+		    	</ion-col>
+		    </ion-row>
+		</ion-list>
+	</div>
+</ion-content>
