@@ -6,26 +6,34 @@
   <div class="card-holder">
     <ion-card class="no-shadow my-card">
       <div padding>
-        <ion-item>
-          <ion-icon name="contact" item-left color="quickgrey"></ion-icon>
-          <input type="tel" placeholder="Username" class="full-width custom-input" [(ngModel)]="objectblock.user"/>
-        </ion-item>
-        <ion-item>
-          <ion-icon name="unlock" item-left color="quickgrey"></ion-icon>
-          <input type="password" placeholder="Password" maxlength="20" class="full-width custom-input" [(ngModel)]="objectblock.pass"/>
-        </ion-item>     
-        
-        <button ion-button block (click)="openPage('DashboardPage')" text-capitalize color="quickgreen" mode="ios" round>
-          Log In
-        </button>
-            
+        <div *ngIf="firstPage">
+          <ion-item>
+            <ion-icon name="contact" item-left color="quickgrey"></ion-icon>
+            <input type="text" placeholder="Username" class="full-width custom-input" [(ngModel)]="objectblock.user"/>
+          </ion-item>
+           <ion-item>
+            <ion-icon name="call" item-left color="quickgrey"></ion-icon>
+            <input type="tel" placeholder="Phone number" class="full-width custom-input" [(ngModel)]="objectblock.phone_number"/>
+          </ion-item>
+        </div> 
+        <button ion-button block (click)="goNext()" text-capitalize color="quickgreen" mode="ios" round *ngIf="firstPage">
+          Sign Up
+        </button> 
+        <div *ngIf="!firstPage">
+          <ion-item>
+            <ion-icon name="lock" item-left color="quickgrey"></ion-icon>
+            <input type="password" placeholder="Password" maxlength="20" class="full-width custom-input" [(ngModel)]="objectblock.pass"/>
+          </ion-item> 
+          <ion-item>
+            <ion-icon name="lock" item-left color="quickgreen"></ion-icon>
+            <input type="password" placeholder="Confirm Password" maxlength="20" class="full-width custom-input" [(ngModel)]="objectblock.pass_confirm"/>
+          </ion-item> 
+        </div>
+        <button ion-button block (click)="openPage('DashboardPage')" text-capitalize color="quickgreen" mode="ios" round *ngIf="!firstPage">
+          Sign Up
+        </button>  
       </div>
     </ion-card>
-    <ion-row padding>
-      <ion-col class="full-width center" ion-text color="white" (click)="openPage('AccountPage')">
-        Sign Up
-      </ion-col>
-    </ion-row>
   </div>
 </ion-content>
 <ion-footer no-border class="hide-on-keyboard-open" padding>

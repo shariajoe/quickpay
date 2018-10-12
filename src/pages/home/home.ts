@@ -13,6 +13,7 @@ import { MenuProvider } from '../../providers/menu/menu';
 export class HomePage {
 
   objectblock:any = {};
+  firstPage: boolean = true;
 
   constructor(public navCtrl: NavController, public menuProvider:MenuProvider) {
 
@@ -26,6 +27,10 @@ export class HomePage {
   	else{
 	    this.navCtrl.setRoot(page);
 	}
+  }
+
+  goNext(){
+  	this.firstPage = false;
   }
 
 }

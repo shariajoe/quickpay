@@ -19,39 +19,54 @@
 <ion-content padding>
 	<div class="full-width full-height">
 		<ion-list class="full-width" style="max-width: 600px;margin:0px auto;">
-		    <ion-item>
-			    <ion-label color="quickgrey" floating>First name</ion-label>
-			    <ion-input></ion-input>
-		    </ion-item>
-		    <ion-item>
-			    <ion-label color="quickgrey" floating>Last name</ion-label>
-			    <ion-input></ion-input>
-		    </ion-item>
-		    <ion-item>
-			    <ion-label color="quickgrey" floating>Username</ion-label>
-			    <ion-input></ion-input>
-		    </ion-item>
-		    <ion-item>
-			    <ion-label color="quickgrey" floating>Email address</ion-label>
-			    <ion-input></ion-input>
-		    </ion-item>
-		     <ion-item>
-			    <ion-label color="quickgrey" floating>Phone number</ion-label>
-			    <ion-input></ion-input>
-		    </ion-item>
+
+		    <div *ngIf="!isPasswordForm">
+			    <ion-item>
+				    <ion-label color="quickgrey" floating>Username</ion-label>
+				    <ion-input type="text"></ion-input>
+			    </ion-item>
+			    <ion-item>
+				    <ion-label color="quickgrey" floating>Phone number</ion-label>
+				    <ion-input type="tel"></ion-input>
+			    </ion-item>
+			    <ion-item no-lines>
+				    <ion-label color="quickgrey" floating>Password</ion-label>
+				    <ion-input type="password"></ion-input>
+			    </ion-item>
+			</div>
+
+            <div *ngIf="isPasswordForm">
+			   <ion-item>
+				    <ion-label color="quickgrey" floating>Old password</ion-label>
+				    <ion-input type="password"></ion-input>
+			    </ion-item>
+			    <ion-item>
+				    <ion-label color="quickgrey" floating>New password</ion-label>
+				    <ion-input type="password"></ion-input>
+			    </ion-item>
+			    <ion-item no-lines>
+				    <ion-label color="quickgrey" floating>Confirm new password</ion-label>
+				    <ion-input type="password"></ion-input>
+			    </ion-item>
+			</div>
+
 		    <ion-row no-padding>
-		    	<ion-col padding col-6 class="center">
-		    		<button ion-button color="quickgreen" block round mode="ios">
-		    			Sign up
+		    	<ion-col padding col-12 class="center"  *ngIf="!isPasswordForm">
+		    		<button ion-button color="quickgreen" block round mode="ios" >
+		    			Edit account details
 		    		</button>
 		    	</ion-col>
-		    	<ion-col padding col-6 class="center">
-		    		<button ion-button color="quickgrey"  block round mode="ios">
-		    			Edit
+		    	<ion-col padding col-12 class="center"  *ngIf="isPasswordForm">
+		    		<button ion-button color="quickgreen" block round mode="ios" >
+		    			Change password
 		    		</button>
 		    	</ion-col>
-		    </ion-row>
-		    <ion-row no-padding>
+		    	<ion-col padding col-12 class="center" (click)="changePassword(true)"  *ngIf="!isPasswordForm">
+		    		<div ion-text color="quickgrey">Change password</div>
+		    	</ion-col>
+		    	<ion-col padding col-12 class="center" (click)="changePassword(false)"  *ngIf="isPasswordForm">
+		    		<div ion-text color="quickgrey">Edit details</div>
+		    	</ion-col>
 		    	<ion-col padding col-12 class="center">
 		    		OR
 		    	</ion-col>

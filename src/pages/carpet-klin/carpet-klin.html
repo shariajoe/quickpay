@@ -24,7 +24,7 @@
 	    		</ion-col>
 	    		<ion-col no-padding class="center no-margin">
                     <div style="height:50px;width:50px;border-radius: 50%;border:5px; border-style:solid;" 
-                    [ngStyle]="{'border-color': shopList?'#98b83a':'#98b83a'}" class="center">
+                    [ngStyle]="{'border-color': shopList?'#98b83a':'#98b83a'}" class="center" (click)="setVisible('shopList')">
                     	<div style="color: #98b83a;font-weight: bold">1</div>
                     </div>
 	    		</ion-col>
@@ -41,7 +41,7 @@
 	    		</ion-col>
 	    		<ion-col no-padding class="center no-margin">
                     <div style="height:50px;width:50px;border-radius: 50%;border:5px; border-style:solid;" 
-                    [ngStyle]="{'border-color': serviceList || reviewList?'#98b83a':'#414c61'}" class="center">
+                    [ngStyle]="{'border-color': serviceList || reviewList?'#98b83a':'#414c61'}" class="center" (click)="setVisible('serviceList')">
                     	<div style="font-weight: bold" [ngStyle]="{'color': serviceList || reviewList?'#98b83a':'#414c61'}">2</div>
                     </div>
 	    		</ion-col>
@@ -57,7 +57,7 @@
 	    		</ion-col>
 	    		<ion-col no-padding class="center no-margin">
                     <div style="height:50px;width:50px;border-radius: 50%;border:5px; border-style:solid;" 
-                    [ngStyle]="{'border-color': reviewList?'#98b83a':'#414c61'}" class="center">
+                    [ngStyle]="{'border-color': reviewList?'#98b83a':'#414c61'}" class="center" (click)="setVisible('reviewList')">
                     	<div style="font-weight: bold" [ngStyle]="{'color': reviewList?'#98b83a':'#414c61'}">3</div>
                     </div>
 	    		</ion-col>

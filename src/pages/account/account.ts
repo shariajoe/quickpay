@@ -15,6 +15,8 @@ import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angul
 })
 export class AccountPage {
 
+  isPasswordForm: boolean = false;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public menuCtrl: MenuController) {
   }
 
@@ -29,6 +31,15 @@ export class AccountPage {
   openPage(page){ 	
   	console.log("test");
   	this.navCtrl.push(page);
+  }
+
+  changePassword(change){
+  	if(change){
+	    this.isPasswordForm = true;
+	}
+	else{
+		this.isPasswordForm = false;
+	}
   }
 
 }
