@@ -16,6 +16,9 @@
             <input type="tel" placeholder="Phone number" class="full-width custom-input" [(ngModel)]="objectblock.phone_number"/>
           </ion-item>
         </div> 
+        <button ion-button block (click)="openCam()" text-capitalize color="quickgreen" mode="ios" round *ngIf="firstPage">
+          open Cam
+        </button> 
         <button ion-button block (click)="goNext()" text-capitalize color="quickgreen" mode="ios" round *ngIf="firstPage">
           Sign Up
         </button> 

@@ -7,6 +7,7 @@ import { MyApp } from './app.component';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { MenuProvider } from '../providers/menu/menu';
+import { Camera } from '@ionic-native/camera';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { MenuProvider } from '../providers/menu/menu';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    MenuProvider
+    MenuProvider,
+    Camera
   ]
 })
 export class AppModule {}
