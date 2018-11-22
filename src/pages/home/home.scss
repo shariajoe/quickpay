@@ -37,13 +37,23 @@ page-home {
         transform: translate(-50%, -100px);
         -webkit-transform: translate(-50%, -100px);
         z-index: 999;
-        height: 200px;
-        width: 200px;
-        border-radius: 50%;
+        height: 150px;
+        width: 320px;
+        border-radius: 25px;
+        padding-right: 30px;
         background:#fff; 
         display:flex; 
         align-items: center;
         justify-content: center;
         overflow: hidden;
+    }
+    .logo-holder-caption{
+        position: absolute;
+        top: 320px;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -100px);
+        -webkit-transform: translate(-50%, -100px);
+        z-index: 999;
     }
 }

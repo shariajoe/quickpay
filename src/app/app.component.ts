@@ -24,7 +24,7 @@ export class MyApp {
       { title: 'Home', component: "DashboardPage", image:"assets/imgs/house.png"},
       { title: 'Car Care', component: "CarCarePage", image:"assets/imgs/car.png" },
       { title: 'CarpetKlin', component: "CarpetKlinPage", image:"assets/imgs/carpet.png" },
-      { title: 'Garbage Kollect', component: "GarbagePage", image:"assets/imgs/garbage.png" }
+      { title: 'Swift Water', component: "WaterPage", image:"assets/imgs/water.png" }
     ];
 
   }

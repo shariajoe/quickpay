@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { GarbagePage } from './garbage';
+import { WaterPage } from './water';
 
 @NgModule({
   declarations: [
-    GarbagePage,
+    WaterPage,
   ],
   imports: [
-    IonicPageModule.forChild(GarbagePage),
+    IonicPageModule.forChild(WaterPage),
   ],
 })
-export class GarbagePageModule {}
+export class WaterPageModule {}

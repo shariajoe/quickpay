@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
 
 /**
- * Generated class for the GarbagePage page.
+ * Generated class for the WaterPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -10,10 +10,10 @@ import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angul
 
 @IonicPage()
 @Component({
-  selector: 'page-garbage',
-  templateUrl: 'garbage.html',
+  selector: 'page-water',
+  templateUrl: 'water.html',
 })
-export class GarbagePage {
+export class WaterPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public menuCtrl: MenuController) {
   }
