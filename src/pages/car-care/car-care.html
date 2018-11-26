@@ -252,7 +252,7 @@
     </button>
     <ion-item no-lines *ngIf="reviewList" style="max-width: 320px;margin:0px auto;">
     	<div item-left class="center" style="position: relative">
-	        <ion-toggle [(ngModel)]="sausage" color="quickgreen" mode="ios"></ion-toggle>
+	        <ion-toggle [(ngModel)]="sausage" color="quickgreen" mode="ios" (ionChange)="update($event)"></ion-toggle>
 	        <div style="color:#fff;" class="absolute-center">Swipe left to pay</div>
 	    </div>
     </ion-item>

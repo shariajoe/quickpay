@@ -7,36 +7,60 @@
 
   
   <div class="card-holder">
-    <ion-card class="no-shadow my-card">
-      <div padding>
-        <div *ngIf="firstPage">
-          <ion-item>
-            <ion-icon name="contact" item-left color="quickgrey"></ion-icon>
-            <input type="text" placeholder="Username" class="full-width custom-input" [(ngModel)]="objectblock.user"/>
-          </ion-item>
-           <ion-item>
-            <ion-icon name="call" item-left color="quickgrey"></ion-icon>
-            <input type="tel" placeholder="Phone number" class="full-width custom-input" [(ngModel)]="objectblock.phone_number"/>
-          </ion-item>
-        </div> 
-        <button ion-button block (click)="goNext()" text-capitalize color="quickgreen" mode="ios" round *ngIf="firstPage">
-          Sign Up
-        </button> 
-        <div *ngIf="!firstPage">
-          <ion-item>
-            <ion-icon name="lock" item-left color="quickgrey"></ion-icon>
-            <input type="password" placeholder="Password" maxlength="20" class="full-width custom-input" [(ngModel)]="objectblock.pass"/>
-          </ion-item> 
-          <ion-item>
-            <ion-icon name="lock" item-left color="quickgreen"></ion-icon>
-            <input type="password" placeholder="Confirm Password" maxlength="20" class="full-width custom-input" [(ngModel)]="objectblock.pass_confirm"/>
-          </ion-item> 
-        </div>
-        <button ion-button block (click)="openPage('DashboardPage')" text-capitalize color="quickgreen" mode="ios" round *ngIf="!firstPage">
-          Sign Up
-        </button>  
-      </div>
-    </ion-card>
+        <ion-card class="no-shadow my-card">
+            <div padding>
+                <div *ngIf="signin">
+                    <ion-item>
+                        <ion-icon name="contact" item-left color="quickgrey"></ion-icon>
+                        <input type="email" placeholder="Email" class="full-width custom-input" [(ngModel)]="data.email"/>
+                    </ion-item>
+                    <ion-item>
+                        <ion-icon name="lock" item-left color="quickgreen"></ion-icon>
+                        <input type="password" placeholder="Password" maxlength="20" class="full-width custom-input" [(ngModel)]="data.password"/>
+                    </ion-item> 
+
+                </div> 
+                <button ion-button block (click)="login()" text-capitalize color="quickgreen" mode="ios" round *ngIf="signin">
+                    Sign In
+                </button> 
+                <div style="margin-top: 20px;margin-left: 10px; cursor: pointer;border-bottom: 1px solid;display: inline-block;padding-bottom: 10px;" (click)="signup_page()" *ngIf="signin">Sign Up</div>
+
+                <div *ngIf="!signin">
+                    
+                    <ion-item>
+                        <ion-icon name="contact" item-left color="quickgrey"></ion-icon>
+                        <input type="text" placeholder="Names" class="full-width custom-input" [(ngModel)]="data.names"/>
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-icon name="md-mail" item-left color="quickgrey"></ion-icon>
+                        <input type="text" placeholder="Email" class="full-width custom-input" [(ngModel)]="data.email"/>
+                    </ion-item>
+                    <ion-item>
+                        <ion-icon name="call" item-left color="quickgrey"></ion-icon>
+                        <input type="tel" placeholder="Phone number" class="full-width custom-input" [(ngModel)]="data.phone"/>
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-icon name="lock" item-left color="quickgrey"></ion-icon>
+                        <input type="password" placeholder="Password" maxlength="20" class="full-width custom-input" [(ngModel)]="data.password"/>
+                    </ion-item> 
+                    <ion-item>
+                        <ion-icon name="lock" item-left color="quickgreen"></ion-icon>
+                        <input type="password" placeholder="Confirm Password" maxlength="20" class="full-width custom-input" [(ngModel)]="data.password2"/>
+                    </ion-item> 
+                </div>
+                <!--<button ion-button block (click)="openPage('DashboardPage')" text-capitalize color="quickgreen" mode="ios" round *ngIf="!signin">
+                    Sign Up
+                </button>--> 
+                <button ion-button small (click)="signup()" text-capitalize color="quickgreen" mode="ios" round *ngIf="!signin">
+                    Sign Up
+                </button>
+                <div style="margin-top: 20px;margin-left: 10px; cursor: pointer;border-bottom: 1px solid;display: inline-block;padding-bottom: 10px;" (click)="signin_page()" *ngIf="!signin">
+                    Sign In
+                </div> 
+            </div>
+        </ion-card>
   </div>
 </ion-content>
 <ion-footer no-border class="hide-on-keyboard-open" padding>
