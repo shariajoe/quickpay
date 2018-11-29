@@ -116,6 +116,13 @@ export class WaterPage {
      }
   }
 
+  openMenu() {
+   this.menuCtrl.open();
+  }
+   
+  ionViewWillEnter(){
+    localStorage.setItem("activePage","Swift Water");
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad WaterPage');
