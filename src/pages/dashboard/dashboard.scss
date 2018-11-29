@@ -1,3 +1,9 @@
 page-dashboard {
 
+	.grad-background {
+		-moz-background-image: -moz-linear-gradient(to right, color($colors, quickgreen), color($colors, quickgreen), color($colors, quickgrey));
+	    -webkit-background-image: -webkit-linear-gradient(to right, color($colors, quickgreen), color($colors, quickgreen), color($colors, quickgrey));
+	    background-image: linear-gradient(to right, color($colors, quickgreen), color($colors, quickgreen), color($colors, quickgrey));
+	}
+
 }

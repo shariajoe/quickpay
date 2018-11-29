@@ -16,6 +16,7 @@ import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angul
 export class ShopFormPage {
   vehicleTypes: any = [];
   carpets: any = [];
+  litres: any = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public menuCtrl: MenuController) {
   	this.vehicleTypes =[{name:"Saloon",image:"assets/imgs/cars/saloon-i.png", checked:false},
@@ -33,6 +34,11 @@ export class ShopFormPage {
     {name:"Small",price:500,checked: false },
     {name:"Big",price:2000,checked: false },
     {name:"Large",price:2500,checked: false }];
+
+    this.litres = [{name:"20L",price:5,checked: false },
+    {name:"50L",price:13,checked: false },
+    {name:"100L",price:26,checked: false },
+    {name:"1000L",price:260,checked: false }];
   }
 
 

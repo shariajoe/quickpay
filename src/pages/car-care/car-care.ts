@@ -127,6 +127,8 @@ update(e)
     let amount=this.paymentObj.total;
     let phone=this.user.phone;
 
+    console.log(amount, phone)
+
     var link=this.prov.php+'api/stk.php';
     var myData = JSON.stringify(
         {
