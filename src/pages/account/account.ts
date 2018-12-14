@@ -10,36 +10,40 @@ import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angul
 
 @IonicPage()
 @Component({
-  selector: 'page-account',
-  templateUrl: 'account.html',
+    selector: 'page-account',
+    templateUrl: 'account.html',
 })
 export class AccountPage {
 
-  isPasswordForm: boolean = false;
+    isPasswordForm: boolean = true;
+user: any = {};
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public menuCtrl: MenuController) {
-  }
+constructor(public navCtrl: NavController, public navParams: NavParams, public menuCtrl: MenuController) {
+}
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AccountPage');
-  }
+ionViewDidLoad() {
+    if(localStorage.getItem('user')){
+        this.user=JSON.parse(localStorage.getItem('user'));       
+        console.log(this.user);
+    }
+}
 
-  openMenu() {
-	 this.menuCtrl.open();
-  }
+openMenu() {
+    this.menuCtrl.open();
+}
 
-  openPage(page){ 	
-  	console.log("test");
-  	this.navCtrl.push(page);
-  }
+openPage(page){ 	
+    console.log("test");
+    this.navCtrl.push(page);
+}
 
-  changePassword(change){
-  	if(change){
-	    this.isPasswordForm = true;
-	}
-	else{
-		this.isPasswordForm = false;
-	}
-  }
+changePassword(change){
+    if(change){
+        this.isPasswordForm = true;
+    }
+    else{
+        this.isPasswordForm = false;
+    }
+}
 
 }

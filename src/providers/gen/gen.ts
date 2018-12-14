@@ -9,7 +9,7 @@ import { Injectable } from '@angular/core';
 */
 @Injectable()
 export class GenProvider {
-//php="http://localhost:90/quickpay/";
+//php="http://localhost:90/swiftpay/";
 php="https://fastpesa.co.ke/swiftpay/";
 
   constructor(public http: HttpClient) {

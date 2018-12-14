@@ -29,6 +29,7 @@ constructor(public platform: Platform, public statusBar: StatusBar, public splas
     ];
 
     if(localStorage.getItem('user')){
+        //localStorage.removeItem("user");
         this.user=JSON.parse(localStorage.getItem('user'));       
         console.log(this.user);
     }

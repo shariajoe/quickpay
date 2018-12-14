@@ -36,10 +36,6 @@
 			</div>
 
             <div *ngIf="isPasswordForm">
-			   <ion-item>
-				    <ion-label color="quickgrey" floating>Old password</ion-label>
-				    <ion-input type="password"></ion-input>
-			    </ion-item>
 			    <ion-item>
 				    <ion-label color="quickgrey" floating>New password</ion-label>
 				    <ion-input type="password"></ion-input>
@@ -51,28 +47,28 @@
 			</div>
 
 		    <ion-row no-padding>
-		    	<ion-col padding col-12 class="center"  *ngIf="!isPasswordForm">
+		    	<!--<ion-col padding col-12 class="center"  *ngIf="!isPasswordForm">
 		    		<button ion-button color="quickgreen" block round mode="ios" >
 		    			Edit account details
 		    		</button>
-		    	</ion-col>
+		    	</ion-col>-->
 		    	<ion-col padding col-12 class="center"  *ngIf="isPasswordForm">
 		    		<button ion-button color="quickgreen" block round mode="ios" >
 		    			Change password
 		    		</button>
 		    	</ion-col>
-		    	<ion-col padding col-12 class="center" (click)="changePassword(true)"  *ngIf="!isPasswordForm">
+		    	<!--<ion-col padding col-12 class="center" (click)="changePassword(true)"  *ngIf="!isPasswordForm">
 		    		<div ion-text color="quickgrey">Change password</div>
-		    	</ion-col>
-		    	<ion-col padding col-12 class="center" (click)="changePassword(false)"  *ngIf="isPasswordForm">
+		    	</ion-col>-->
+		    	<!--<ion-col padding col-12 class="center" (click)="changePassword(false)"  *ngIf="isPasswordForm">
 		    		<div ion-text color="quickgrey">Edit details</div>
-		    	</ion-col>
-		    	<ion-col padding col-12 class="center">
+		    	</ion-col>-->
+		    	<!--<ion-col padding col-12 class="center">
 		    		OR
-		    	</ion-col>
-		    	<ion-col padding col-12 class="center">
+		    	</ion-col>-->
+		    	<ion-col padding col-12 class="center" *ngIf="user.user_type=='shop_owner'">
 		    		<button ion-button class="grad-background absolute-center" block round mode="ios" style="height:44px;max-width: 80%"
-		    		(click)="openPage('CreateShopPage')">
+		    		(click)="openPage('ShopFormPage')">
 		    			Create shop
 		    		</button>
 		    	</ion-col>
