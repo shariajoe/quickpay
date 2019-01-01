@@ -1,0 +1,34 @@
+<ion-header mode="ios">
+    <ion-navbar hideBackButton id="quickgrad" style="position: relative">
+        <button ion-button icon-start color="mytran" class="no-shadow" (click)="navCtrl.pop()"> 
+            <ion-icon name="ios-arrow-back" class="hidden-lg"></ion-icon>
+            <div class="navbar-logo-outer bg-white">
+                <div class="navbar-logo-inner"></div>
+            </div>
+        </button>
+        <ion-title color="white" text-capitalize class="absolute-center">Payments</ion-title>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+<button ion-button color="danger" small style="text-transform: capitalize;" (click)="refresh()">Refresh</button>
+
+<table datatable class="row-border hover" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+    <thead>
+        <tr>
+            <th>User</th>
+            <th>Services</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let payment of payments">
+            <td>{{payment.customer_name}} on {{payment.date}}</td>
+            <td>{{payment.services}}</td>
+            <td>{{payment.status}}</td>
+        </tr>
+    </tbody>
+</table>
+</ion-content>

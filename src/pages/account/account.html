@@ -72,6 +72,15 @@
 		    			Create shop
 		    		</button>
 		    	</ion-col>
+		    	
+		    	<ion-col padding col-12 class="center" *ngIf="user.user_type=='shop_owner'">
+		    	<br><br><br>
+		    		<button ion-button class="grad-background absolute-center" block round mode="ios" style="height:44px;max-width: 80%"
+		    		(click)="openPage('PaymentsPage')">
+		    			View Payments
+		    		</button>
+		    	</ion-col>
+		    	
 		    </ion-row>
 		</ion-list>
 	</div>
