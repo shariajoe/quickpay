@@ -1,12 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
-
-/**
- * Generated class for the AccountPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { IonicPage, NavController, NavParams, MenuController,ToastController } from 'ionic-angular';
+import { GenProvider } from '../../providers/gen/gen';
+import { HttpClient } from '@angular/common/http';
 
 @IonicPage()
 @Component({
@@ -17,8 +12,17 @@ export class AccountPage {
 
     isPasswordForm: boolean = true;
 user: any = {};
+pass1;
+pass2;
 
-constructor(public navCtrl: NavController, public navParams: NavParams, public menuCtrl: MenuController) {
+constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public menuCtrl: MenuController,
+    public prov: GenProvider,
+    public http: HttpClient ,
+    private toastCtrl: ToastController
+) {
 }
 
 ionViewDidLoad() {
@@ -44,6 +48,34 @@ changePassword(change){
     else{
         this.isPasswordForm = false;
     }
+}
+
+change_password()
+{
+    var myData = JSON.stringify(
+        {
+            pass1: this.pass1 , 
+            pass2: this.pass2,
+            user_id:this.user.id
+        }
+    );
+    var link=this.prov.php+'change_password.php';
+
+    this.http.post(link, myData)
+        .subscribe(r => {
+        let res=r;
+
+        let toast = this.toastCtrl.create({
+            message: r['msg'],
+            duration: 3000,
+            position: 'bottom'
+        });
+
+        toast.present();
+
+    }, error => {
+        console.log(error);
+    });
 }
 
 }

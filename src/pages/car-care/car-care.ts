@@ -119,7 +119,7 @@ openMenu() {
 
 get_shops()
 {
-    var link=this.prov.php+'get_shops.php';
+    var link=this.prov.php+'get_car_shops.php';
 
     this.http.get(link)
         .subscribe(data => {

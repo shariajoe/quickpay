@@ -1,88 +1,93 @@
 <!--
-  Generated template for the AccountPage page.
+Generated template for the AccountPage page.
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
+See http://ionicframework.com/docs/components/#navigation for more info on
+Ionic pages and navigation.
 -->
 <ion-header mode="ios">
-  <ion-navbar id="quickgrad" style="position: relative">
-    <button ion-button icon-start color="mytran" class="no-shadow" (click)="openMenu()"> 
-	  <ion-icon name="md-menu"class="hidden-lg"></ion-icon>
-	  <div class="navbar-logo-outer bg-white">
-	  	<div class="navbar-logo-inner"></div>
-	  </div>
-	</button>
-	<ion-title color="white" text-capitalize class="absolute-center">My account</ion-title>
-  </ion-navbar>
+    <ion-navbar id="quickgrad" style="position: relative">
+        <button ion-button icon-start color="mytran" class="no-shadow" (click)="openMenu()"> 
+            <ion-icon name="md-menu"class="hidden-lg"></ion-icon>
+            <div class="navbar-logo-outer bg-white">
+                <div class="navbar-logo-inner"></div>
+            </div>
+        </button>
+        <ion-title color="white" text-capitalize class="absolute-center">My account</ion-title>
+    </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-	<div class="full-width full-height">
-		<ion-list class="full-width" style="max-width: 600px;margin:0px auto;">
+    <div class="full-width full-height">
+        <ion-list class="full-width" style="max-width: 600px;margin:0px auto;">
 
-		    <div *ngIf="!isPasswordForm">
-			    <ion-item>
-				    <ion-label color="quickgrey" floating>Username</ion-label>
-				    <ion-input type="text"></ion-input>
-			    </ion-item>
-			    <ion-item>
-				    <ion-label color="quickgrey" floating>Phone number</ion-label>
-				    <ion-input type="tel"></ion-input>
-			    </ion-item>
-			    <ion-item no-lines>
-				    <ion-label color="quickgrey" floating>Password</ion-label>
-				    <ion-input type="password"></ion-input>
-			    </ion-item>
-			</div>
+            <div *ngIf="!isPasswordForm">
+                <ion-item>
+                    <ion-label color="quickgrey" floating>Username</ion-label>
+                    <ion-input type="text"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label color="quickgrey" floating>Phone number</ion-label>
+                    <ion-input type="tel"></ion-input>
+                </ion-item>
+                <ion-item no-lines>
+                    <ion-label color="quickgrey" floating>Password</ion-label>
+                    <ion-input type="password"></ion-input>
+                </ion-item>
+            </div>
 
             <div *ngIf="isPasswordForm">
-			    <ion-item>
-				    <ion-label color="quickgrey" floating>New password</ion-label>
-				    <ion-input type="password"></ion-input>
-			    </ion-item>
-			    <ion-item no-lines>
-				    <ion-label color="quickgrey" floating>Confirm new password</ion-label>
-				    <ion-input type="password"></ion-input>
-			    </ion-item>
-			</div>
+                <ion-item>
+                    <ion-label color="quickgrey" floating>New password</ion-label>
+                    <ion-input type="password" [(ngModel)]="pass1"></ion-input>
+                </ion-item>
+                <ion-item no-lines>
+                    <ion-label color="quickgrey" floating>Confirm new password</ion-label>
+                    <ion-input type="password" [(ngModel)]="pass2"></ion-input>
+                </ion-item>
+            </div>
 
-		    <ion-row no-padding>
-		    	<!--<ion-col padding col-12 class="center"  *ngIf="!isPasswordForm">
-		    		<button ion-button color="quickgreen" block round mode="ios" >
-		    			Edit account details
-		    		</button>
-		    	</ion-col>-->
-		    	<ion-col padding col-12 class="center"  *ngIf="isPasswordForm">
-		    		<button ion-button color="quickgreen" block round mode="ios" >
-		    			Change password
-		    		</button>
-		    	</ion-col>
-		    	<!--<ion-col padding col-12 class="center" (click)="changePassword(true)"  *ngIf="!isPasswordForm">
-		    		<div ion-text color="quickgrey">Change password</div>
-		    	</ion-col>-->
-		    	<!--<ion-col padding col-12 class="center" (click)="changePassword(false)"  *ngIf="isPasswordForm">
-		    		<div ion-text color="quickgrey">Edit details</div>
-		    	</ion-col>-->
-		    	<!--<ion-col padding col-12 class="center">
-		    		OR
-		    	</ion-col>-->
-		    	<ion-col padding col-12 class="center" *ngIf="user.user_type=='shop_owner'">
-		    		<button ion-button class="grad-background absolute-center" block round mode="ios" style="height:44px;max-width: 80%"
-		    		(click)="openPage('ShopFormPage')">
-		    			Create shop
-		    		</button>
-		    	</ion-col>
-		    	
-		    	<ion-col padding col-12 class="center" *ngIf="user.user_type=='shop_owner'">
-		    	<br><br><br>
-		    		<button ion-button class="grad-background absolute-center" block round mode="ios" style="height:44px;max-width: 80%"
-		    		(click)="openPage('PaymentsPage')">
-		    			View Payments
-		    		</button>
-		    	</ion-col>
-		    	
-		    </ion-row>
-		</ion-list>
-	</div>
+            <ion-row no-padding>
+
+                <ion-col padding col-12 class="center"  *ngIf="isPasswordForm">
+                    <button ion-button color="quickgreen" block round mode="ios" (click)="change_password()">
+                        Change password
+                    </button>
+                </ion-col>
+
+                <ion-col padding col-12 class="center" >
+                    <br>
+                    <button ion-button class="grad-background absolute-center" block round mode="ios" style="height:44px;max-width: 80%"
+                            (click)="openPage('ShopFormPage')">
+                        Create shop
+                    </button>
+                </ion-col>
+
+                <ion-col padding col-12 class="center" *ngIf="user.user_type=='shop_owner' || user.user_type=='super_admin'">
+                    <br><br><br>
+                    <button ion-button class="grad-background absolute-center" block round mode="ios" style="height:44px;max-width: 80%"
+                            (click)="openPage('PaymentsPage')">
+                        View Payments
+                    </button>
+                </ion-col>
+
+                <ion-col padding col-12 class="center" *ngIf="user.user_type=='super_admin'">
+
+                    <button ion-button class="grad-background absolute-center" block round mode="ios" style="height:44px;max-width: 80%"
+                            (click)="openPage('SuperPage')">
+                        Approve Shops
+                    </button>
+                </ion-col>
+
+                <ion-col padding col-12 class="center" *ngIf="user.user_type=='shop_owner' || user.user_type=='super_admin'">
+                    <br><br><br>
+                    <button ion-button class="grad-background absolute-center" block round mode="ios" style="height:44px;max-width: 80%"
+                            (click)="openPage('AddattendantPage')">
+                        Add Attendants
+                    </button>
+                </ion-col>
+
+            </ion-row>
+        </ion-list>
+    </div>
 
 </ion-content>

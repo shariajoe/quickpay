@@ -10,42 +10,47 @@ import { MenuProvider } from '../../providers/menu/menu';
 
 @IonicPage()
 @Component({
-  selector: 'page-dashboard',
-  templateUrl: 'dashboard.html',
+    selector: 'page-dashboard',
+    templateUrl: 'dashboard.html',
 })
 export class DashboardPage {
     user: any = {};
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public menuCtrl: MenuController,
-  	public menuProvider: MenuProvider) {
-  }
+constructor(public navCtrl: NavController, public navParams: NavParams, public menuCtrl: MenuController,
+            public menuProvider: MenuProvider) {
+}
 
-      ionViewDidLoad() {
-        if(localStorage.getItem('user')){
-            this.user=JSON.parse(localStorage.getItem('user'));       
-            console.log(this.user);
-        }
-        else
+ionViewDidLoad() {
+    if(localStorage.getItem('user')){
+        this.user=JSON.parse(localStorage.getItem('user'));       
+        console.log(this.user);
+
+        if(this.user.user_type=="attendant")
         {
-            this.navCtrl.setRoot('HomePage');
+            this.navCtrl.setRoot('PaymentsPage');
         }
     }
-  
-  openMenu() {
-	 this.menuCtrl.open();
-  }
+    else
+    {
+        this.navCtrl.setRoot('HomePage');
+    }
+}
 
-  openPage(page){
-  	if(page === "DashboardPage"){
-  		this.menuProvider.activePage = "Home";
-  	} else if(page === "CarCarePage"){
-  		this.menuProvider.activePage = "Car Care";
-  	} else if(page === "CarpetKlinPage"){
-  		this.menuProvider.activePage = "CarpetKlin";
-  	} else if(page === "GarbagePage"){
-  		this.menuProvider.activePage = "Garbage Kollect";
-  	}
-  	
-  	this.navCtrl.setRoot(page);
-  }
+openMenu() {
+    this.menuCtrl.open();
+}
+
+openPage(page){
+    if(page === "DashboardPage"){
+        this.menuProvider.activePage = "Home";
+    } else if(page === "CarCarePage"){
+        this.menuProvider.activePage = "Car Care";
+    } else if(page === "CarpetKlinPage"){
+        this.menuProvider.activePage = "CarpetKlin";
+    } else if(page === "GarbagePage"){
+        this.menuProvider.activePage = "Garbage Kollect";
+    }
+
+    this.navCtrl.setRoot(page);
+}
 }

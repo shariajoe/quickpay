@@ -1,6 +1,6 @@
 <ion-header mode="ios">
     <ion-navbar hideBackButton id="quickgrad" style="position: relative">
-        <button ion-button icon-start color="mytran" class="no-shadow" (click)="navCtrl.pop()"> 
+        <button ion-button icon-start color="mytran" class="no-shadow" (click)="navCtrl.pop()" *ngIf="user.user_type!='attendant' "> 
             <ion-icon name="ios-arrow-back" class="hidden-lg"></ion-icon>
             <div class="navbar-logo-outer bg-white">
                 <div class="navbar-logo-inner"></div>
@@ -13,7 +13,9 @@
 
 <ion-content padding>
 
-<button ion-button color="danger" small style="text-transform: capitalize;" (click)="refresh()">Refresh</button>
+<button ion-button color="default" small style="text-transform: capitalize;" (click)="logout()">LogOut</button>
+<br>
+<button ion-button color="default" small style="text-transform: capitalize;" (click)="refresh()">Refresh</button>
 
 <table datatable class="row-border hover" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
     <thead>

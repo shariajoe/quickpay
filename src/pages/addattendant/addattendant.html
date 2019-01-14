@@ -1,0 +1,47 @@
+<ion-header mode="ios">
+    <ion-navbar hideBackButton id="quickgrad" style="position: relative">
+        <button ion-button icon-start color="mytran" class="no-shadow" (click)="navCtrl.pop()"> 
+            <ion-icon name="ios-arrow-back" class="hidden-lg"></ion-icon>
+            <div class="navbar-logo-outer bg-white">
+                <div class="navbar-logo-inner"></div>
+            </div>
+        </button>
+        <ion-title color="white" text-capitalize class="absolute-center">Add Attendants</ion-title>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+    <div>
+        <ion-input type="text"  [(ngModel)]="email" class='inp' placeholder="Attendant's Email"></ion-input>
+        <br>
+
+        <div style="height: 20px;">
+           <span>Add To : </span>
+            <ion-select [(ngModel)]="addto" interface="popover" style="border: 1px solid #aaa; border-radius: 5px;height: 45px;">
+                <ion-option *ngFor="let shop of shops" value="{{shop.id}}">{{shop.name}}</ion-option>
+            </ion-select>
+        </div>
+
+        <br><br><br>
+        <button ion-button color="default" small style="text-transform: capitalize;" (click)="add()">Add</button>
+    </div>
+
+    <div style="padding-bottom: 10px;border-bottom: 1px solid black;display: inline-block;margin-bottom: 10px;margin-top: 10px;">
+        Existing Attendants
+    </div>
+
+    <table>
+        <tr>
+            <th>Attendant Name</th>
+            <th>Shop</th>
+        </tr>
+
+        <tr *ngFor="let attendant of attendants">
+            <td>{{attendant.name}}</td>
+            <td>{{attendant.shop}}</td>
+        </tr>
+    </table>
+
+</ion-content>

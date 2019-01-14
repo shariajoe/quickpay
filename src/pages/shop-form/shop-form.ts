@@ -16,6 +16,7 @@ services: any = [];
 data:any={};
 shop_name;
 user: any = {};
+c;
 
 constructor(public navCtrl: NavController, 
             public navParams: NavParams, 
@@ -49,21 +50,44 @@ constructor(public navCtrl: NavController,
         {name:"Body Wax", id:10 },
     ];
 
-    this.carpets = [{name:"Doormat",price:500,checked: false },
-                    {name:"Small",price:500,checked: false },
-                    {name:"Big",price:2000,checked: false },
-                    {name:"Large",price:2500,checked: false }];
+    this.carpets = [{name:"doormat",price:"",checked: false, id:1  },
+                    {name:"small",price:"",checked: false, id:2  },
+                    {name:"medium",price:"",checked: false, id:3  },
+                    {name:"large",price:"",checked: false, id:4  }];
 
-    this.litres = [{name:"20L",price:5,checked: false },
-                   {name:"50L",price:13,checked: false },
-                   {name:"100L",price:26,checked: false },
-                   {name:"1000L",price:260,checked: false }];
+    this.litres = [
+        {name:"10L",price:"",checked: false, id:1  },
+        {name:"20L",price:"",checked: false, id:2  },
+        {name:"50L",price:"",checked: false , id:3 },
+        {name:"100L",price:"",checked: false, id:4  },
+        {name:"1000L",price:"",checked: false, id:5  }
+    ];
 }
 
 
 ionViewDidLoad() {
     this.user=JSON.parse(localStorage.getItem('user'));   
     console.log(this.user);
+}
+
+carpet_price(price,carpet)
+{
+    if(price!=undefined)
+    {
+        carpet.price=price;
+        //console.log(carpet);
+    }
+
+}
+
+litre_price(price,litre)
+{
+    if(price!=undefined)
+    {
+        litre.price=price;
+        //console.log(litre);
+    }
+
 }
 
 openMenu() {
@@ -77,13 +101,30 @@ openPage(page){
 
 create()
 {
+    this.prov.show_loader('Creating shop ..');
     let vehicle_list = [];
+    let carpet_list = [];
+    let litre_list = [];
 
     this.vehicleTypes.forEach((vehicle)=>{
-        if(vehicle.checked){
+        if(vehicle.checked && vehicle.service_prices.length>0){
             vehicle_list.push(vehicle);
         }
     })
+
+    this.carpets.forEach((carpet)=>{
+        if(carpet.checked && carpet.price!=""){
+            carpet_list.push(carpet);
+        }
+    }); 
+    //console.log(carpet_list);
+
+    this.litres.forEach((litre)=>{
+        if(litre.checked && litre.price!=""){
+            litre_list.push(litre);
+        }
+    }); 
+    //console.log(litre_list);
 
 
     if(this.shop_name==undefined)
@@ -96,10 +137,10 @@ create()
 
         toast.present();
     }
-    else if( vehicle_list.length==0 )
+    else if( vehicle_list.length==0 && carpet_list.length==0 && litre_list.length==0)
     {
         let toast = this.toastCtrl.create({
-            message: "Enter car wash prices",
+            message: "Enter car wash / carpet wash / water prices",
             duration: 5000,
             position: 'bottom'
         });
@@ -108,22 +149,27 @@ create()
     }
     else
     {
+        console.log("all ok");
         console.log(vehicle_list);
+        console.log(carpet_list);
+        console.log(litre_list);
 
         var link=this.prov.php+'create_shop.php';
         var myData = JSON.stringify(
             {
                 shop_name: this.shop_name,
                 uid:this.user.id,
-                car_wash_prices:vehicle_list
+                car_wash_prices:vehicle_list,
+                carpet_wash_prices:carpet_list,
+                water_prices:litre_list
             });
 
         this.http.post(link, myData)
             .subscribe(data => {
-
+            this.prov.dismiss_loader();
             let res= data;
             console.log(res);
-            
+
             let toast = this.toastCtrl.create({
                 message: res['msg'],
                 duration: 5000,
@@ -148,17 +194,19 @@ set_price(vehicle,service,p)
     let new_service={name:name , price:price , id:id};
     let exists=false;
 
-    if(p!=undefined)
+    if(p!=undefined && p!="")
     {
+        console.log(p);
         for(var i=0; i<vehicle.service_prices.length; i++)
         {
+
             if( vehicle.service_prices[i].name==name )
             {
                 exists=true;
                 console.log('exists');
                 //delete vehicle.service_prices[i];
                 vehicle.service_prices[i]=new_service;
-                //vehicle.service_prices.push(new_service);
+
                 break;
             }
         }

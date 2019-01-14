@@ -20,6 +20,7 @@ dtTrigger: Subject<any> = new Subject();
 
 user: any = {};
 payments:any=[];
+uid;
 
 constructor(
     public navCtrl: NavController, 
@@ -35,9 +36,47 @@ ionViewDidLoad() {
         ordering:false
     };
     this.user=JSON.parse(localStorage.getItem('user')); 
+    this.check_user();
 
-    this.get_payments();
+}
 
+logout()
+{ 
+    localStorage.removeItem("user");
+    //this.nav.setRoot('HomePage');
+    this.navCtrl.setRoot('HomePage');
+}
+
+check_user()
+{
+    let user_type=this.user.user_type;  
+
+    if(user_type=='attendant')
+    {
+        var link=this.prov.php+'get_shop_for_attendant.php';
+        var myData = JSON.stringify(
+            {
+                uid: this.user.id
+            });
+
+        this.http.post(link, myData)
+            .subscribe(data => {
+
+            let res= data;
+            this.uid=res[0];
+            console.log(this.uid); 
+            this.get_payments();
+
+        }, error => {
+            console.log(error);
+        });
+
+
+    }else if(user_type=='super_admin' || user_type=='shop_owner')
+    {
+        this.uid=this.user.id;
+        this.get_payments();
+    }
 }
 
 refresh()
@@ -56,7 +95,7 @@ get_payments()
     var link=this.prov.php+'get_payments.php';
     var myData = JSON.stringify(
         {
-            uid: this.user.id
+            uid: this.uid
         });
 
     this.http.post(link, myData)

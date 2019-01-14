@@ -79,7 +79,7 @@ Ionic pages and navigation.
                             <div *ngIf="carpet.checked" class="full-width">
                                 <ion-item class="full-width" no-lines>
                                     <ion-label color="quickgrey" fixed text-wrap>{{carpet.name}} Price</ion-label>
-                                    <ion-input type="tel" placeholder='eg. 400'></ion-input>
+                                    <ion-input type="number" placeholder='eg. 400'  [(ngModel)]="data[carpet.id]" (ionBlur)="carpet_price(data[carpet.id],carpet)"></ion-input>
                                 </ion-item>
                             </div>
                         </ion-row>
@@ -111,7 +111,7 @@ Ionic pages and navigation.
                             <div *ngIf="litre.checked" class="full-width">
                                 <ion-item class="full-width" no-lines>
                                     <ion-label color="quickgrey" fixed text-wrap>{{litre.name}} Price</ion-label>
-                                    <ion-input type="tel" placeholder='eg. 400'></ion-input>
+                                    <ion-input type="tel" placeholder='eg. 400' [(ngModel)]="data[litre.id]" (ionBlur)="litre_price(data[litre.id],litre)"></ion-input>
                                 </ion-item>
                             </div>
                         </ion-row>

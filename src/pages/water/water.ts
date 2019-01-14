@@ -3,66 +3,73 @@ import { IonicPage, NavController, NavParams, MenuController, Content } from 'io
 import {debounceTime} from "rxjs/operators/debounceTime";
 import {FormControl} from "@angular/forms";
 import * as _ from 'lodash';
-/**
- * Generated class for the WaterPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { GenProvider } from '../../providers/gen/gen';
+import { HttpClient } from '@angular/common/http';
 
 @IonicPage()
 @Component({
-  selector: 'page-water',
-  templateUrl: 'water.html',
+    selector: 'page-water',
+    templateUrl: 'water.html',
 })
 export class WaterPage {
-  @ViewChild('pageTop') pageTop: Content;
-  shops: any = [];
-  allShops: any = [];
-  searchTerm: string = '';
-  searchControl: FormControl;
-  searching: boolean = false;
-  sections: any = [];
-  vehicleTypes: any = [];
-  shopList: boolean = true;
-  reviewList: boolean = false;
-  serviceList: boolean = false;
-  services: any = [];
-  carpetType: string = "";
-  slide_down: boolean = false;
-  paymentObj: any = {shop_name:"", service_list:[], total:0};
+    @ViewChild('pageTop') pageTop: Content;
+shops: any = [];
+allShops: any = [];
+searchTerm: string = '';
+searchControl: FormControl;
+searching: boolean = false;
+sections: any = [];
+vehicleTypes: any = [];
+shopList: boolean = true;
+reviewList: boolean = false;
+slide_down: boolean = false;
+serviceList: boolean = false;
+services: any = [];
+carpetType: string = "";
+paymentObj: any = {shop_name:"", shop_id:"",service_list:[], total:0};
+invoice_id;
+user: any = {};
+payment_status="Awaiting Payment";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public menuCtrl: MenuController) {
-    this.shops = [
-      {name:"Steve Wash"},
-      {name:"Azei Cleaning Services"},
-      {name:"Wabrian Cleaners"},
-      {name:"Ann Wash"},
-      {name:"Paul Agencies"},
-      {name:"Roy Wash"},
-      {name:"Juliet Wash"},
-      {name:"Nderitu Wash"},
-      {name:"Kayanda Wash"},
-      {name:"Sharia Wash"},
-      {name:"Sharon Wash"},
-      {name:"Friends Car Wash"},
-      {name:"Midiwo Wash"},
-      {name:"Okoth Obado Wash"},
-      {name:"Mwajeu Car Wash"}];
+constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public menuCtrl: MenuController,
+    public prov: GenProvider,
+    public http: HttpClient
+) {
+    /*this.shops = [
+        {name:"Steve Wash"},
+        {name:"Azei Cleaning Services"},
+        {name:"Wabrian Cleaners"},
+        {name:"Ann Wash"},
+        {name:"Paul Agencies"},
+        {name:"Roy Wash"},
+        {name:"Juliet Wash"},
+        {name:"Nderitu Wash"},
+        {name:"Kayanda Wash"},
+        {name:"Sharia Wash"},
+        {name:"Sharon Wash"},
+        {name:"Friends Car Wash"},
+        {name:"Midiwo Wash"},
+        {name:"Okoth Obado Wash"},
+        {name:"Mwajeu Car Wash"}];*/
 
-    this.services = [{name:"20L",price:5,checked: false },
-    {name:"50L",price:13,checked: false },
-    {name:"100L",price:26,checked: false },
-    {name:"1000L",price:260,checked: false }];
+    this.get_shops();
+
+    /*this.services = [{name:"20L",price:5,checked: false },
+                     {name:"50L",price:13,checked: false },
+                     {name:"100L",price:26,checked: false },
+                     {name:"1000L",price:260,checked: false }];*/
 
     this.allShops = this.shops;
 
-      let result = _(this.allShops)
-          .groupBy(o => o.name[0].toUpperCase())
-          .map((shops, letter) => ({ letter, shops }))
-          .value();
+    let result = _(this.allShops)
+    .groupBy(o => o.name[0].toUpperCase())
+    .map((shops, letter) => ({ letter, shops }))
+    .value();
 
-      result = _.orderBy(result, ['letter'],['asc']);
+    result = _.orderBy(result, ['letter'],['asc']);
 
     this.sections = result;
 
@@ -70,93 +77,212 @@ export class WaterPage {
 
     this.searchControl.valueChanges.pipe(debounceTime(700)).subscribe(search => {
         if (this.searchTerm.length >= 3) {
-          this.getShops();
+            this.getShops();
         }
     });
 
-  }
+}
 
-  setVisible(list, payload){
-     if(list=="reviewList"){
-       let service_list = [];
-       let total = 0;
-       let count = 0;
+update(e)
+{
+    let amount=this.paymentObj.total;
+    let phone=this.user.phone;
+    let iid=this.invoice_id;
+
+    //console.log(amount, phone)
+
+    var link=this.prov.php+'api/stk.php';
+    var myData = JSON.stringify(
+        {
+            amount:amount,
+            phone:phone,
+            iid:iid
+        });
+
+    this.http.post(link, myData)
+        .subscribe(data => {
+
+        let res= data;
+
+        console.log(res);
+
+    }, error => {
+        console.log(error);
+    });
+}
+
+refresh_status()
+{
+    var link=this.prov.php+'status.php';
+    var myData = JSON.stringify(
+        {
+            iid: this.invoice_id
+        });
+
+    this.http.post(link, myData)
+        .subscribe(data => {
+
+        let res= data;
+        console.log(res);
+        this.payment_status=res[0];
+
+    }, error => {
+        console.log(error);
+    });
+}
+
+setVisible(list, payload){
+    if(list=="reviewList"){
+        let service_list = [];
+        let total = 0;
+        let count = 0;
+        let service_names= "Swift Water : ";
         this.services.forEach((service)=>{
             if(service.checked){
-              count++;
+                count++;
                 service_list.push(service);
+                service_names=service_names+service.name+", ";
                 total += service.price;
             }
-       })
-       if(count){
-        this.paymentObj.service_list = service_list;
-        this.paymentObj.total = total;
+        })
+        if(count){
+            this.paymentObj.service_list = service_list;
+            this.paymentObj.total = total;
+            service_names = service_names.replace(/,\s*$/, "");
 
-         this.shopList = false;
-          this.serviceList = false;
-          this.reviewList = true;
-          let that = this;
-          setTimeout(()=>{
-             that.slide_down = true;
-          },300);
-      }
-     } else if(list=="shopList"){
-       this.shopList = true;
+            this.shopList = false;
+            this.serviceList = false;
+            this.reviewList = true;
+            let that = this;
+
+            //save invoice in db
+            var myData = JSON.stringify(
+                {
+                    uid: this.user.id ,  
+                    shop_id:this.paymentObj.shop_id,
+                    service_names:service_names,
+                    total:this.paymentObj.total
+                });
+            var link=this.prov.php+'save_invoice.php';
+
+            this.http.post(link, myData)
+                .subscribe(data => {
+                let res = data; 
+                //console.log(res);
+                this.invoice_id=res[0];
+
+            }, error => {
+                console.log(error);
+            });
+
+            setTimeout(()=>{
+                that.slide_down = true;
+            },300);
+        }
+    } else if(list=="shopList"){
+        this.shopList = true;
         this.serviceList = false;
         this.reviewList = false;
 
-     } else if(list=="serviceList"){
-       if(payload){
-          this.paymentObj.shop_name = payload.name;
-      }
-       this.shopList = false;
+    } else if(list=="serviceList"){
+        if(payload){
+            this.paymentObj.shop_name = payload.name;
+            this.paymentObj.shop_id = payload.id;
+            //console.log(this.paymentObj);
+        }
+
+        //get service prices
+        var myData = JSON.stringify(
+            {
+                shop_id:this.paymentObj.shop_id                  
+            });
+
+        var link=this.prov.php+'get_water_prices.php';
+
+        this.http.post(link, myData)
+            .subscribe(data => {
+            let res = data; 
+            //console.log(res);
+            this.services=res;
+
+        }, error => {
+            console.log(error);
+        });
+        this.shopList = false;
         this.serviceList = true;
         this.reviewList = false;
 
-     }
-  }
+    }
+}
 
-  openMenu() {
-   this.menuCtrl.open();
-  }
-   
-  ionViewWillEnter(){
-    localStorage.setItem("activePage","Swift Water");
-  }
+get_shops()
+{
+    var link=this.prov.php+'get_water_shops.php';
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad WaterPage');
-  }
+    this.http.get(link)
+        .subscribe(data => {
 
-  penMenu() {
-   this.menuCtrl.open();
-  }
+        let res= data;
+        console.log(res);
+        this.shops=res;
 
-  pageScroller(){
-    //scroll to page top
-    this.pageTop.scrollToTop();
-  }
+        this.allShops = this.shops;
 
-  getShops(){
-    let filteredShops = this.allShops.filter(shop => shop.name.toLowerCase().indexOf(this.searchTerm.toLowerCase()) >= 0);
-    this.shops= filteredShops;
-    let result = _(this.shops)
+        let result = _(this.allShops)
         .groupBy(o => o.name[0].toUpperCase())
         .map((shops, letter) => ({ letter, shops }))
         .value();
 
+        result = _.orderBy(result, ['letter'],['asc']);
+
+        this.sections = result;
+
+    }, error => {
+        console.log(error);
+    });
+}
+
+openMenu() {
+    this.menuCtrl.open();
+}
+
+ionViewWillEnter(){
+    localStorage.setItem("activePage","Swift Water");
+}
+
+ionViewDidLoad() {
+    this.user=JSON.parse(localStorage.getItem('user')); 
+}
+
+penMenu() {
+    this.menuCtrl.open();
+}
+
+pageScroller(){
+    //scroll to page top
+    this.pageTop.scrollToTop();
+}
+
+getShops(){
+    let filteredShops = this.allShops.filter(shop => shop.name.toLowerCase().indexOf(this.searchTerm.toLowerCase()) >= 0);
+    this.shops= filteredShops;
+    let result = _(this.shops)
+    .groupBy(o => o.name[0].toUpperCase())
+    .map((shops, letter) => ({ letter, shops }))
+    .value();
+
     result = _.orderBy(result, ['letter'],['asc']);
 
-  this.sections = result;
+    this.sections = result;
 
-  }
+}
 
-  onSearchInput(){
+onSearchInput(){
 
-    
+
     if(this.searchTerm.length >= 3){
-      this.searching = true;
+        this.searching = true;
     }
-  }
+}
 
 }
