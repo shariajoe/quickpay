@@ -90,10 +90,10 @@
         </div>
 
         <div  *ngIf="serviceList" padding class="full-width">
-            <ion-row no-padding>
+            <ion-row no-padding *ngIf="buyWater && serviceSelected">
                 <ion-col no-padding col-lg-12 col-md-12 col-sm-12 col-12 text-center>
                     <div ion-text color="quickgrey" style="font-size: 18px;margin-top: 20px;margin-bottom: 20px;margin-left: -20px;"> 
-                        <ion-icon name="ios-arrow-back" style="margin-right: 20px;font-size: 18px" (click)="setVisible('shopList')"></ion-icon>
+                        <ion-icon name="ios-arrow-back" style="margin-right: 20px;font-size: 18px" (click)="gobacktoMenu()"></ion-icon>
                         Select number of litres
                     </div>
                 </ion-col>
@@ -118,6 +118,42 @@
                     </ion-list>
                 </ion-col>
             </ion-row>
+            <ion-row no-padding *ngIf="!buyWater && serviceSelected">
+                <ion-col no-padding col-lg-12 col-md-12 col-sm-12 col-12 text-center>
+                    <div ion-text color="quickgrey" style="font-size: 18px;margin-top: 20px;margin-bottom: 20px;margin-left: -20px;"> 
+                        <ion-icon name="ios-arrow-back" style="margin-right: 20px;font-size: 18px" (click)="gobacktoMenu()"></ion-icon>
+                        Fill in details below
+                    </div>
+                </ion-col>
+                <ion-col no-padding col-lg-12 col-md-12 col-sm-12 col-12 class="center">
+                    <div style="max-width:600px; min-width:350px">
+                        <ion-item>
+                            <ion-label floating>Previous Meter Reading</ion-label>
+                            <ion-input type="number" [value]="previousMeterReading" readonly></ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label floating>Current Meter Reading</ion-label>
+                            <ion-input type="number" [(ngModel)]="currentMeterReading"></ion-input>
+                        </ion-item>
+                    </div>
+                </ion-col>
+            </ion-row>
+            <ion-row no-padding *ngIf="!serviceSelected" style="height:100%;">
+                <ion-col no-padding col-lg-12 col-md-12 col-sm-12 col-12 text-center style="height:100%;">
+                    <ion-col no-padding col-lg-12 col-md-12 col-sm-12 col-12 text-center>
+                        <div ion-text color="quickgrey" style="font-size: 18px;margin-top: 20px;margin-bottom: 20px;margin-left: -20px;"> 
+                            <ion-icon name="ios-arrow-back" style="margin-right: 20px;font-size: 18px" (click)="setVisible('shopList')"></ion-icon>
+                            Select service
+                        </div>
+                    </ion-col>
+                    <button ion-button block  *ngIf="serviceList" (click)=" selectService(true)" text-capitalize color="quickgreen" mode="ios" round style="max-width: 600px;margin:10px auto 20px auto;">
+                        Buy Water
+                    </button>
+                    <button ion-button block  *ngIf="serviceList" (click)=" selectService(false)" text-capitalize color="quickgrey" mode="ios" round style="max-width: 600px;margin:10px auto;">
+                        Pay Bill
+                    </button>
+                </ion-col>
+            </ion-row>
         </div>
 
         <div  *ngIf="reviewList" padding class="full-width">
@@ -133,6 +169,8 @@
 
                     <div class="receipt"  [ngClass]="slide_down?'slide_down':''" text-center style="padding:10px;margin-bottom: 100px">
                         <div style="margin-top: 10px;margin-bottom: 10px">{{paymentObj.shop_name}}</div>
+                        <div style="height:100px;width:100px;background-repeat: no-repeat;background-size: contain;
+                        background-position: center; margin:10px auto; background-image: url('assets/imgs/water.png')"></div>
                         <ion-row no-padding  style="border:1px solid #ddd;">
                             <ion-col col-6 no-padding ion-text color="quickgrey" class="no-margin" style="border-bottom:1px solid #ddd;padding:10px" text-left>
                                 Service
@@ -166,6 +204,8 @@
 
                     <div class="receipt"  [ngClass]="slide_down?'slide_down':''" text-center style="padding:10px;margin-bottom: 100px">
                         <div style="margin-top: 10px;margin-bottom: 10px">{{paymentObj.shop_name}}</div>
+                        <div style="height:100px;width:100px;background-repeat: no-repeat;background-size: contain;
+                        background-position: center; margin:10px auto; background-image: url('assets/imgs/water.png')"></div>
                         <ion-row no-padding  style="border:1px solid #ddd;">
                             <ion-col col-6 no-padding ion-text color="quickgrey" class="no-margin" style="border-bottom:1px solid #ddd;padding:10px" text-left>
                                 Service
@@ -237,7 +277,7 @@
     </div>
 
 </ion-content>
-<ion-footer no-border class="hide-on-keyboard-open bg-white" padding *ngIf="serviceList || reviewList">
+<ion-footer no-border class="hide-on-keyboard-open bg-white" padding *ngIf="(serviceList || reviewList) && serviceSelected">
     <button ion-button block  *ngIf="serviceList" (click)="setVisible('reviewList')" text-capitalize color="quickgreen" mode="ios" round style="max-width: 600px;margin:0px auto;">
         Proceed
     </button>

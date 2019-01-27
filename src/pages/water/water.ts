@@ -30,6 +30,11 @@ paymentObj: any = {shop_name:"", shop_id:"",service_list:[], total:0};
 invoice_id;
 user: any = {};
 payment_status="Awaiting Payment";
+serviceSelected: boolean = false;
+buyWater: boolean = true;
+previousMeterReading: number = 0;
+currentMeterReading: number = 0;
+serviceCharge: number = 100;
 
 constructor(
     public navCtrl: NavController, 
@@ -133,50 +138,64 @@ refresh_status()
 
 setVisible(list, payload){
     if(list=="reviewList"){
-        let service_list = [];
-        let total = 0;
-        let count = 0;
-        let service_names= "Swift Water : ";
-        this.services.forEach((service)=>{
-            if(service.checked){
-                count++;
-                service_list.push(service);
-                service_names=service_names+service.name+", ";
-                total += service.price;
+
+        if(this.buyWater){
+            let service_list = [];
+            let total = 0;
+            let count = 0;
+            let service_names= "Swift Water : ";
+            this.services.forEach((service)=>{
+                if(service.checked){
+                    count++;
+                    service_list.push(service);
+                    service_names=service_names+service.name+", ";
+                    total += service.price;
+                }
+            })
+            if(count){
+                this.paymentObj.service_list = service_list;
+                this.paymentObj.total = total;
+                service_names = service_names.replace(/,\s*$/, "");
+
+                this.shopList = false;
+                this.serviceList = false;
+                this.reviewList = true;
+                let that = this;
+
+                //save invoice in db
+                var myData = JSON.stringify(
+                    {
+                        uid: this.user.id ,  
+                        shop_id:this.paymentObj.shop_id,
+                        service_names:service_names,
+                        total:this.paymentObj.total
+                    });
+                var link=this.prov.php+'save_invoice.php';
+
+                this.http.post(link, myData)
+                    .subscribe(data => {
+                    let res = data; 
+                    //console.log(res);
+                    this.invoice_id=res[0];
+
+                }, error => {
+                    console.log(error);
+                });
+
+                setTimeout(()=>{
+                    that.slide_down = true;
+                },300);
             }
-        })
-        if(count){
-            this.paymentObj.service_list = service_list;
+        } else {
+            let total = (this.currentMeterReading - this.previousMeterReading)* this.serviceCharge;
+            this.paymentObj.service_list.push({name:"Water Bill", price: total});
             this.paymentObj.total = total;
-            service_names = service_names.replace(/,\s*$/, "");
 
             this.shopList = false;
             this.serviceList = false;
             this.reviewList = true;
-            let that = this;
-
-            //save invoice in db
-            var myData = JSON.stringify(
-                {
-                    uid: this.user.id ,  
-                    shop_id:this.paymentObj.shop_id,
-                    service_names:service_names,
-                    total:this.paymentObj.total
-                });
-            var link=this.prov.php+'save_invoice.php';
-
-            this.http.post(link, myData)
-                .subscribe(data => {
-                let res = data; 
-                //console.log(res);
-                this.invoice_id=res[0];
-
-            }, error => {
-                console.log(error);
-            });
-
             setTimeout(()=>{
-                that.slide_down = true;
+                this.slide_down = true;
             },300);
         }
     } else if(list=="shopList"){
@@ -283,6 +302,15 @@ onSearchInput(){
     if(this.searchTerm.length >= 3){
         this.searching = true;
     }
+}
+
+selectService(buyWater){
+    this.serviceSelected = true;
+    this.buyWater = buyWater;
+}
+
+gobacktoMenu(){
+    this.serviceSelected = false;
 }
 
 }
