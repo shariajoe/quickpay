@@ -164,3 +164,8 @@ ion-content {
 .point_me{
 	cursor: pointer;
 }
+
+.alert-ios .alert-button,
+.alert-md .alert-button{ 
+    color: color($colors, quickgreen);
+}

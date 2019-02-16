@@ -23,101 +23,131 @@ Ionic pages and navigation.
                 <ion-label color="quickgrey" floating>Shop name</ion-label>
                 <ion-input [(ngModel)]="shop_name"></ion-input>
             </ion-item>
-            <ion-row no-padding>
-                <ion-col no-padding col-lg-12 col-md-12 col-sm-12 col-12 text-center>
-                    <div ion-text color="quickgrey" style="font-size: 16px;margin-top: 20px;margin-bottom: 20px;" text-center> 
+            <div ion-text color="quickgrey" style="font-size: 12px;margin-top: 20px;margin-bottom: 20px;" text-center> 
+                (*Fill in details for any of the three services available at your station before submitting to create shop)
+            </div>
 
-                        Select type of car you can service
-                    </div>
-                </ion-col>
-                <ion-col no-padding col-lg-12 col-md-12 col-sm-12 col-12 text-center style="margin-bottom: 20px">
-                    <ion-list style="padding:0px 20px 0px 20px; max-width: 600px;margin: 0px auto;">
+            <!-- Segment in content -->
+            <ion-segment [(ngModel)]="serviceType" color="quickgreen">
+                <ion-segment-button value="carCare">
+                  Car Care
+                </ion-segment-button>
+                <ion-segment-button value="carpetClean">
+                  Carpet Clean
+                </ion-segment-button>
+                <ion-segment-button value="water">
+                  Water
+                </ion-segment-button>
 
-                        <ion-row no-padding align-items-center *ngFor="let vehicle of vehicleTypes;let i=index" style="border-bottom:1px solid #ddd"
-                                 [ngStyle]="{'background-color': i%2 != 0?'rgba(106,106,106,0.2)':'rgba(110,13,38,0.2)'}"> 
-                            <ion-col no-padding col-12>
-                                <ion-item no-lines text-wrap color="mytran" class="point_me">
-                                    <div item-left class="center">
-                                        <ion-checkbox color="quickgreen" [(ngModel)]="vehicle.checked"></ion-checkbox>
-                                        <ion-label color="quickgrey">{{vehicle.name}}</ion-label>
-                                    </div>
-                                    <div item-right>
-                                        <div style="height:50px;width:50px;background-repeat: no-repeat;background-size: contain;background-position: center; margin:0px auto" [ngStyle]="{'background-image': 'url('+vehicle.image+')'}"></div>
-                                    </div>
-                                </ion-item>
-                            </ion-col>
-                            <div *ngIf="vehicle.checked" class="full-width">
-                                <ion-item class="full-width" *ngFor="let service of services">
-                                    <ion-label color="quickgrey" fixed text-wrap>{{service.name}}</ion-label>
-                                    <ion-input type="number" placeholder='eg. 400' [(ngModel)]="data[vehicle.id+''+service.id]" (ionBlur)="set_price(vehicle,service,data[vehicle.id+''+service.id])"></ion-input>
-                                </ion-item>
-                            </div>
-                        </ion-row>
-                    </ion-list>
-                </ion-col>
-            </ion-row>
-            <ion-row no-padding>
-                <ion-col no-padding col-lg-12 col-md-12 col-sm-12 col-12 text-center>
-                    <div ion-text color="quickgrey" style="font-size: 16px;margin-top: 20px;margin-bottom: 20px;"> 
+            </ion-segment>
+            <div class="full-width" [ngSwitch]="serviceType" >
+                <ion-row no-padding *ngSwitchCase="'carCare'">
+                    <ion-col no-padding col-lg-12 col-md-12 col-sm-12 col-12 text-center>
+                        <div ion-text color="quickgrey" style="font-size: 16px;margin-top: 20px;margin-bottom: 20px;" text-center> 
 
-                        Select type of carpet you can service
-                    </div>
-                </ion-col>
-                <ion-col no-padding col-lg-12 col-md-12 col-sm-12 col-12 text-center style="margin-bottom: 20px">
-                    <ion-list style="padding:0px 20px 0px 20px; max-width: 600px;margin: 0px auto;">
+                            Select type of car you can service
+                        </div>
+                    </ion-col>
+                    <ion-col no-padding col-lg-12 col-md-12 col-sm-12 col-12 text-center style="margin-bottom: 20px">
+                        <ion-list style="padding:0px 20px 0px 20px; max-width: 600px;margin: 0px auto;">
 
-                        <ion-row no-padding align-items-center *ngFor="let carpet of carpets;let i=index" style="border-bottom:1px solid #ddd"
-                                 [ngStyle]="{'background-color': i%2 != 0?'rgba(106,106,106,0.2)':'rgba(110,13,38,0.2)'}"> 
-                            <ion-col no-padding col-12>
-                                <ion-item no-lines text-wrap color="mytran" class="point_me">
-                                    <div item-left class="center">
-                                        <ion-checkbox color="quickgreen" [(ngModel)]="carpet.checked"></ion-checkbox>
-                                        <ion-label color="quickgrey">{{carpet.name}}</ion-label>
-                                    </div> 
-                                </ion-item>
-                            </ion-col>
-                            <div *ngIf="carpet.checked" class="full-width">
-                                <ion-item class="full-width" no-lines>
-                                    <ion-label color="quickgrey" fixed text-wrap>{{carpet.name}} Price</ion-label>
-                                    <ion-input type="number" placeholder='eg. 400'  [(ngModel)]="data[carpet.id]" (ionBlur)="carpet_price(data[carpet.id],carpet)"></ion-input>
-                                </ion-item>
-                            </div>
-                        </ion-row>
+                            <ion-row no-padding align-items-center *ngFor="let vehicle of vehicleTypes;let i=index" style="border-bottom:1px solid #ddd"
+                                     [ngStyle]="{'background-color': i%2 != 0?'rgba(106,106,106,0.2)':'rgba(110,13,38,0.2)'}"> 
+                                <ion-col no-padding col-12>
+                                    <ion-item no-lines text-wrap color="mytran" class="point_me">
+                                        <div item-left class="center">
+                                            <ion-checkbox color="quickgreen" [(ngModel)]="vehicle.checked"></ion-checkbox>
+                                            <ion-label color="quickgrey">{{vehicle.name}}</ion-label>
+                                        </div>
+                                        <div item-right>
+                                            <div style="height:50px;width:50px;background-repeat: no-repeat;background-size: contain;background-position: center; margin:0px auto" [ngStyle]="{'background-image': 'url('+vehicle.image+')'}"></div>
+                                        </div>
+                                    </ion-item>
+                                </ion-col>
+                                <div *ngIf="vehicle.checked" class="full-width">
+                                    <ion-item class="full-width" *ngFor="let service of services">
+                                        <ion-label color="quickgrey" fixed text-wrap>{{service.name}}</ion-label>
+                                        <ion-input type="number" placeholder='eg. 400' [(ngModel)]="data[vehicle.id+''+service.id]" (ionBlur)="set_price(vehicle,service,data[vehicle.id+''+service.id])"></ion-input>
+                                    </ion-item>
+                                </div>
+                            </ion-row>
+                        </ion-list>
+                    </ion-col>
+                </ion-row>
+                <ion-row no-padding *ngSwitchCase="'carpetClean'">
+                    <ion-col no-padding col-lg-12 col-md-12 col-sm-12 col-12 text-center>
+                        <div ion-text color="quickgrey" style="font-size: 16px;margin-top: 20px;margin-bottom: 20px;"> 
+
+                            Select type of carpet you can service
+                        </div>
+                    </ion-col>
+                    <ion-col no-padding col-lg-12 col-md-12 col-sm-12 col-12 text-center style="margin-bottom: 20px">
+                        <ion-list style="padding:0px 20px 0px 20px; max-width: 600px;margin: 0px auto;">
+
+                            <ion-row no-padding align-items-center *ngFor="let carpet of carpets;let i=index" style="border-bottom:1px solid #ddd"
+                                     [ngStyle]="{'background-color': i%2 != 0?'rgba(106,106,106,0.2)':'rgba(110,13,38,0.2)'}"> 
+                                <ion-col no-padding col-12>
+                                    <ion-item no-lines text-wrap color="mytran" class="point_me">
+                                        <div item-left class="center">
+                                            <ion-checkbox color="quickgreen" [(ngModel)]="carpet.checked"></ion-checkbox>
+                                            <ion-label color="quickgrey">{{carpet.name}}</ion-label>
+                                        </div> 
+                                    </ion-item>
+                                </ion-col>
+                                <div *ngIf="carpet.checked" class="full-width">
+                                    <ion-item class="full-width" no-lines>
+                                        <ion-label color="quickgrey" fixed text-wrap>{{carpet.name}} Price</ion-label>
+                                        <ion-input type="number" placeholder='eg. 400'  [(ngModel)]="data[carpet.id]" (ionBlur)="carpet_price(data[carpet.id],carpet)"></ion-input>
+                                    </ion-item>
+                                </div>
+                            </ion-row>
 
 
-                    </ion-list>
-                </ion-col>
-            </ion-row>
-            <ion-row no-padding>
-                <ion-col no-padding col-lg-12 col-md-12 col-sm-12 col-12 text-center>
-                    <div ion-text color="quickgrey" style="font-size: 16px;margin-top: 20px;margin-bottom: 20px;"> 
+                        </ion-list>
+                    </ion-col>
+                </ion-row>
+                <ion-row no-padding *ngSwitchCase="'water'">
+                    <ion-col no-padding col-lg-12 col-md-12 col-sm-12 col-12 text-center>
+                        <div ion-text color="quickgrey" style="font-size: 16px;margin-top: 20px;margin-bottom: 20px;"> 
 
-                        Select number of litres you can supply
-                    </div>
-                </ion-col>
-                <ion-col no-padding col-lg-12 col-md-12 col-sm-12 col-12 text-center style="margin-bottom: 20px">
-                    <ion-list style="padding:0px 20px 0px 20px; max-width: 600px;margin: 0px auto;">
+                            Select number of litres you can supply
+                        </div>
+                    </ion-col>
+                    <ion-col no-padding col-lg-12 col-md-12 col-sm-12 col-12 text-center style="margin-bottom: 20px">
+                        <ion-list style="padding:0px 20px 0px 20px; max-width: 600px;margin: 0px auto;">
+                            <ion-row no-padding align-items-center  style="border-bottom:1px solid #ddd"
+                                     [ngStyle]="{'background-color': i%2 != 0?'rgba(106,106,106,0.2)':'rgba(110,13,38,0.2)'}"> 
+                                <ion-col no-padding col-12>
+                                    <ion-item no-lines text-wrap color="mytran" class="point_me">
+                                        <div item-left class="center">
+                                            <ion-checkbox color="quickgreen" [(ngModel)]="waterBillPaymentEnabled"></ion-checkbox>
+                                            <ion-label color="quickgrey">Enable water bill payment</ion-label>
+                                        </div> 
+                                    </ion-item>
+                                </ion-col>
+                            </ion-row>
 
-                        <ion-row no-padding align-items-center *ngFor="let litre of litres;let i=index" style="border-bottom:1px solid #ddd"
-                                 [ngStyle]="{'background-color': i%2 != 0?'rgba(106,106,106,0.2)':'rgba(110,13,38,0.2)'}"> 
-                            <ion-col no-padding col-12>
-                                <ion-item no-lines text-wrap color="mytran" class="point_me">
-                                    <div item-left class="center">
-                                        <ion-checkbox color="quickgreen" [(ngModel)]="litre.checked"></ion-checkbox>
-                                        <ion-label color="quickgrey">{{litre.name}}</ion-label>
-                                    </div> 
-                                </ion-item>
-                            </ion-col>
-                            <div *ngIf="litre.checked" class="full-width">
-                                <ion-item class="full-width" no-lines>
-                                    <ion-label color="quickgrey" fixed text-wrap>{{litre.name}} Price</ion-label>
-                                    <ion-input type="tel" placeholder='eg. 400' [(ngModel)]="data[litre.id]" (ionBlur)="litre_price(data[litre.id],litre)"></ion-input>
-                                </ion-item>
-                            </div>
-                        </ion-row>
-                    </ion-list>
-                </ion-col>
-            </ion-row>
+                            <ion-row no-padding align-items-center *ngFor="let litre of litres;let i=index" style="border-bottom:1px solid #ddd"
+                                     [ngStyle]="{'background-color': i%2 != 0?'rgba(106,106,106,0.2)':'rgba(110,13,38,0.2)'}"> 
+                                <ion-col no-padding col-12>
+                                    <ion-item no-lines text-wrap color="mytran" class="point_me">
+                                        <div item-left class="center">
+                                            <ion-checkbox color="quickgreen" [(ngModel)]="litre.checked"></ion-checkbox>
+                                            <ion-label color="quickgrey">{{litre.name}}</ion-label>
+                                        </div> 
+                                    </ion-item>
+                                </ion-col>
+                                <div *ngIf="litre.checked" class="full-width">
+                                    <ion-item class="full-width" no-lines>
+                                        <ion-label color="quickgrey" fixed text-wrap>{{litre.name}} Price</ion-label>
+                                        <ion-input type="tel" placeholder='eg. 400' [(ngModel)]="data[litre.id]" (ionBlur)="litre_price(data[litre.id],litre)"></ion-input>
+                                    </ion-item>
+                                </div>
+                            </ion-row>
+                        </ion-list>
+                    </ion-col>
+                </ion-row>
+            </div>
             <ion-row no-padding style="margin-top: 20px;margin-bottom: 100px">
                 <ion-col no-padding col-12 class="center">
                     <button ion-button class="grad-background absolute-center" block round mode="ios" style="height:44px;max-width: 80%" (click)="create()"

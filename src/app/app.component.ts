@@ -23,15 +23,13 @@ constructor(public platform: Platform, public statusBar: StatusBar, public splas
     // used for an example of ngFor and navigation
     this.pages = [
         { title: 'Home', component: "DashboardPage", image:"assets/imgs/house.png"},
-        { title: 'Car Care', component: "CarCarePage", image:"assets/imgs/car.png" },
-        { title: 'CarpetKlin', component: "CarpetKlinPage", image:"assets/imgs/carpet.png" },
+        { title: 'Swift Car Care', component: "CarCarePage", image:"assets/imgs/car.png" },
+        { title: 'Swift Carpet Clean', component: "CarpetKlinPage", image:"assets/imgs/carpet.png" },
         { title: 'Swift Water', component: "WaterPage", image:"assets/imgs/water.png" }
     ];
 
     if(localStorage.getItem('user')){
-        //localStorage.removeItem("user");
-        this.user=JSON.parse(localStorage.getItem('user'));       
-        console.log(this.user);
+        this.user=JSON.parse(localStorage.getItem('user'));  
     }
     else
     {

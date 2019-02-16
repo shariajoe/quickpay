@@ -27,8 +27,7 @@ constructor(
 
 ionViewDidLoad() {
     if(localStorage.getItem('user')){
-        this.user=JSON.parse(localStorage.getItem('user'));       
-        console.log(this.user);
+        this.user=JSON.parse(localStorage.getItem('user'));  
     }
 }
 
@@ -36,8 +35,7 @@ openMenu() {
     this.menuCtrl.open();
 }
 
-openPage(page){ 	
-    console.log("test");
+openPage(page){ 
     this.navCtrl.push(page);
 }
 

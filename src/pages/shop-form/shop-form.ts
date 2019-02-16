@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController,ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController,ToastController, AlertController } from 'ionic-angular';
 import { GenProvider } from '../../providers/gen/gen';
 import { HttpClient } from '@angular/common/http';
 
@@ -16,14 +16,16 @@ services: any = [];
 data:any={};
 shop_name;
 user: any = {};
-c;
+waterBillPaymentEnabled: boolean = false;
+serviceType: string = "carCare";
 
 constructor(public navCtrl: NavController, 
             public navParams: NavParams, 
             public menuCtrl: MenuController,
             private toastCtrl: ToastController,
             public prov: GenProvider,
-            public http: HttpClient 
+            public http: HttpClient ,
+            private alertCtrl: AlertController
            ) 
 {
     this.vehicleTypes =[{name:"Saloon",image:"assets/imgs/cars/saloon-i.png", checked:false , id:1 ,service_prices:[] },
@@ -67,7 +69,6 @@ constructor(public navCtrl: NavController,
 
 ionViewDidLoad() {
     this.user=JSON.parse(localStorage.getItem('user'));   
-    console.log(this.user);
 }
 
 carpet_price(price,carpet)
@@ -101,89 +102,106 @@ openPage(page){
 
 create()
 {
-    this.prov.show_loader('Creating shop ..');
-    let vehicle_list = [];
-    let carpet_list = [];
-    let litre_list = [];
-
-    this.vehicleTypes.forEach((vehicle)=>{
-        if(vehicle.checked && vehicle.service_prices.length>0){
-            vehicle_list.push(vehicle);
+    let alert = this.alertCtrl.create({
+    title: 'Create Shop',
+    message: 'I confirm that I have filled in  details for all services offered at my station',
+    buttons: [
+      {
+        text: 'Not yet',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
         }
-    })
+      },
+      {
+        text: 'Yes I am done',
+        handler: () => {
+            this.prov.show_loader('Creating shop ..');
+            let vehicle_list = [];
+            let carpet_list = [];
+            let litre_list = [];
 
-    this.carpets.forEach((carpet)=>{
-        if(carpet.checked && carpet.price!=""){
-            carpet_list.push(carpet);
-        }
-    }); 
-    //console.log(carpet_list);
+            this.vehicleTypes.forEach((vehicle)=>{
+                if(vehicle.checked && vehicle.service_prices.length>0){
+                    vehicle_list.push(vehicle);
+                }
+            })
 
-    this.litres.forEach((litre)=>{
-        if(litre.checked && litre.price!=""){
-            litre_list.push(litre);
-        }
-    }); 
-    //console.log(litre_list);
+            this.carpets.forEach((carpet)=>{
+                if(carpet.checked && carpet.price!=""){
+                    carpet_list.push(carpet);
+                }
+            }); 
+            //console.log(carpet_list);
+
+            this.litres.forEach((litre)=>{
+                if(litre.checked && litre.price!=""){
+                    litre_list.push(litre);
+                }
+            }); 
+            //console.log(litre_list);
 
 
-    if(this.shop_name==undefined)
-    {
-        let toast = this.toastCtrl.create({
-            message: "Enter a shop name",
-            duration: 5000,
-            position: 'bottom'
-        });
-
-        toast.present();
-    }
-    else if( vehicle_list.length==0 && carpet_list.length==0 && litre_list.length==0)
-    {
-        let toast = this.toastCtrl.create({
-            message: "Enter car wash / carpet wash / water prices",
-            duration: 5000,
-            position: 'bottom'
-        });
-
-        toast.present();
-    }
-    else
-    {
-        console.log("all ok");
-        console.log(vehicle_list);
-        console.log(carpet_list);
-        console.log(litre_list);
-
-        var link=this.prov.php+'create_shop.php';
-        var myData = JSON.stringify(
+            if(this.shop_name==undefined)
             {
-                shop_name: this.shop_name,
-                uid:this.user.id,
-                car_wash_prices:vehicle_list,
-                carpet_wash_prices:carpet_list,
-                water_prices:litre_list
-            });
+                let toast = this.toastCtrl.create({
+                    message: "Enter a shop name",
+                    duration: 5000,
+                    position: 'bottom'
+                });
 
-        this.http.post(link, myData)
-            .subscribe(data => {
-            this.prov.dismiss_loader();
-            let res= data;
-            console.log(res);
+                toast.present();
+            }
+            else if( vehicle_list.length==0 && carpet_list.length==0 && litre_list.length==0)
+            {
+                let toast = this.toastCtrl.create({
+                    message: "Enter car wash / carpet wash / water prices",
+                    duration: 5000,
+                    position: 'bottom'
+                });
 
-            let toast = this.toastCtrl.create({
-                message: res['msg'],
-                duration: 5000,
-                position: 'bottom'
-            });
+                toast.present();
+            }
+            else
+            {
+                console.log("all ok");
+                console.log(vehicle_list);
+                console.log(carpet_list);
+                console.log(litre_list);
 
-            toast.present();
+                var link=this.prov.php+'create_shop.php';
+                var myData = JSON.stringify(
+                    {
+                        shop_name: this.shop_name,
+                        uid:this.user.id,
+                        car_wash_prices:vehicle_list,
+                        carpet_wash_prices:carpet_list,
+                        water_prices:litre_list
+                    });
 
-        }, error => {
-            console.log(error);
-        });
+                this.http.post(link, myData)
+                    .subscribe(data => {
+                    this.prov.dismiss_loader();
+                    let res= data;
+                    console.log(res);
 
-    }
+                    let toast = this.toastCtrl.create({
+                        message: res['msg'],
+                        duration: 5000,
+                        position: 'bottom'
+                    });
 
+                    toast.present();
+
+                }, error => {
+                    console.log(error);
+                });
+
+            }
+        }
+      }
+    ]});
+    alert.present();
 }
 
 set_price(vehicle,service,p)
