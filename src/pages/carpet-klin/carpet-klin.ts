@@ -101,7 +101,7 @@ update(e)
 
     //console.log(amount, phone)
 
-    var link=this.prov.php+'api/stk.php';
+    var link=this.prov.php+'stk.php';
     var myData = JSON.stringify(
         {
             amount:amount,
@@ -123,7 +123,8 @@ update(e)
 
 refresh_status()
 {
-    var link=this.prov.php+'status.php';
+    this.prov.show_loader("Please wait");
+    var link=this.prov.php+'validate.php'
     var myData = JSON.stringify(
         {
             iid: this.invoice_id
@@ -133,14 +134,48 @@ refresh_status()
         .subscribe(data => {
 
         let res= data;
-        console.log(res);
-        this.payment_status=res[0];
+        console.log(res['Status']);
+
+        if(res['Status']=='BAD REQUEST')
+        {
+            this.prov.dismiss_loader();
+            this.payment_status="Still Awaiting Payment";
+        }
+        else
+        {
+            this.save_payment(res);
+        }
+
 
     }, error => {
         console.log(error);
     });
 }
 
+save_payment(res)
+{ 
+    this.prov.dismiss_loader();
+    let iid=res['AccountNumber'];
+    let amount=res['amount'];
+    
+    var link=this.prov.php+'save_payment.php';
+    var myData = JSON.stringify(
+        {
+            amount:amount,
+            iid:iid
+        });
+
+    this.http.post(link, myData)
+        .subscribe(data => {
+
+        let res= data;
+        console.log(res);
+        this.payment_status=res['status'];
+
+    }, error => {
+        console.log(error);
+    });
+}
 get_shops()
 {
     var link=this.prov.php+'get_carpet_shops.php';

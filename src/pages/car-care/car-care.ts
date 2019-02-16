@@ -146,7 +146,8 @@ get_shops()
 
 refresh_status()
 {
-    var link=this.prov.php+'status.php';
+    this.prov.show_loader("Please wait");
+    var link=this.prov.php+'validate.php'
     var myData = JSON.stringify(
         {
             iid: this.invoice_id
@@ -156,8 +157,43 @@ refresh_status()
         .subscribe(data => {
 
         let res= data;
+        console.log(res['Status']);
+
+        if(res['Status']=='BAD REQUEST')
+        {
+            this.prov.dismiss_loader();
+            this.payment_status="Still Awaiting Payment";
+        }
+        else
+        {
+            this.save_payment(res);
+        }
+
+
+    }, error => {
+        console.log(error);
+    });
+}
+
+save_payment(res)
+{ 
+    this.prov.dismiss_loader();
+    let iid=res['AccountNumber'];
+    let amount=res['amount'];
+    
+    var link=this.prov.php+'save_payment.php';
+    var myData = JSON.stringify(
+        {
+            amount:amount,
+            iid:iid
+        });
+
+    this.http.post(link, myData)
+        .subscribe(data => {
+
+        let res= data;
         console.log(res);
-        this.payment_status=res[0];
+        this.payment_status=res['status'];
 
     }, error => {
         console.log(error);
@@ -172,7 +208,7 @@ update(e)
 
     //console.log(amount, phone)
 
-    var link=this.prov.php+'api/stk.php';
+    var link=this.prov.php+'stk.php';
     var myData = JSON.stringify(
         {
             amount:amount,
@@ -205,7 +241,7 @@ setVisible(list,payload){
             {
                 shop_id: this.paymentObj.shop_id                  
             });
-        
+
         var link=this.prov.php+'get_cars.php';
 
         this.http.post(link, myData)
@@ -237,14 +273,14 @@ setVisible(list,payload){
             this.paymentObj.car_type_name = payload.name;
             this.paymentObj.car_id = payload.id;
         }
-        
+
         //get service prices
         var myData = JSON.stringify(
             {
                 shop_id:this.paymentObj.shop_id,
                 car_id: this.paymentObj.car_id                  
             });
-        
+
         var link=this.prov.php+'get_prices.php';
 
         this.http.post(link, myData)
@@ -256,8 +292,8 @@ setVisible(list,payload){
         }, error => {
             console.log(error);
         });
-        
-        
+
+
         this.shopList = false;
         this.serviceList = true;
         this.carList = false;
