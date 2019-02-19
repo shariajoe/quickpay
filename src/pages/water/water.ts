@@ -35,6 +35,8 @@ buyWater: boolean = true;
 previousMeterReading: number = 1;
 currentMeterReading: number = 0;
 serviceCharge: number = 100;
+sell_water;
+water_bill;
 
 constructor(
     public navCtrl: NavController, 
@@ -264,6 +266,8 @@ setVisible(list, payload){
         if(payload){
             this.paymentObj.shop_name = payload.name;
             this.paymentObj.shop_id = payload.id;
+            this.sell_water=payload.sell_water;
+            this.water_bill=payload.water_bill;
             //console.log(this.paymentObj);
         }
 

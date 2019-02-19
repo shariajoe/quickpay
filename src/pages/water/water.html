@@ -146,10 +146,10 @@
                             Select service
                         </div>
                     </ion-col>
-                    <button ion-button block  *ngIf="serviceList" (click)=" selectService(true)" text-capitalize color="quickgreen" mode="ios" round style="max-width: 600px;margin:10px auto 20px auto;">
+                    <button ion-button block  *ngIf="serviceList && sell_water" (click)=" selectService(true)" text-capitalize color="quickgreen" mode="ios" round style="max-width: 600px;margin:10px auto 20px auto;">
                         Buy Water
                     </button>
-                    <button ion-button block  *ngIf="serviceList" (click)=" selectService(false)" text-capitalize color="quickgrey" mode="ios" round style="max-width: 600px;margin:10px auto;">
+                    <button ion-button block  *ngIf="serviceList && water_bill" (click)=" selectService(false)" text-capitalize color="quickgrey" mode="ios" round style="max-width: 600px;margin:10px auto;">
                         Pay Bill
                     </button>
                 </ion-col>
