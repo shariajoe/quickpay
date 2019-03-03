@@ -46,7 +46,7 @@ add()
             .subscribe(data => {
 
             let res= data;
-            console.log(res);
+            //console.log(res);
             this.get_attendants();
             let toast = this.toastCtrl.create({
                 message: res[0],
@@ -75,7 +75,7 @@ get_attendants()
         .subscribe(data => {
 
         let res= data;
-        console.log(res);
+        //console.log(res);
         this.attendants=res;
 
     }, error => {
@@ -95,7 +95,7 @@ getmyshops()
         .subscribe(data => {
 
         let res= data;
-        console.log(res);
+        //console.log(res);
         this.shops=res;
 
     }, error => {

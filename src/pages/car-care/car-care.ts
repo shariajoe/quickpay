@@ -109,8 +109,6 @@ ionViewWillEnter(){
 
 ionViewDidLoad() {
     this.user=JSON.parse(localStorage.getItem('user'));       
-    console.log(this.user);
-
 }
 
 openMenu() {
@@ -125,7 +123,7 @@ get_shops()
         .subscribe(data => {
 
         let res= data;
-        console.log(res);
+        //console.log(res);
         this.shops=res;
 
         this.allShops = this.shops;
@@ -157,7 +155,7 @@ refresh_status()
         .subscribe(data => {
 
         let res= data;
-        console.log(res['Status']);
+        //console.log(res['Status']);
 
         if(res['Status']=='BAD REQUEST')
         {
@@ -192,7 +190,7 @@ save_payment(res)
         .subscribe(data => {
 
         let res= data;
-        console.log(res);
+        //console.log(res);
         this.payment_status=res['status'];
 
     }, error => {
@@ -221,8 +219,6 @@ update(e)
 
         let res= data;
 
-        console.log(res);
-
     }, error => {
         console.log(error);
     });
@@ -247,7 +243,6 @@ setVisible(list,payload){
         this.http.post(link, myData)
             .subscribe(data => {
             let res = data; 
-            console.log(res);
             this.vehicleTypes=res;
 
         }, error => {
@@ -286,7 +281,6 @@ setVisible(list,payload){
         this.http.post(link, myData)
             .subscribe(data => {
             let res = data; 
-            console.log(res);
             this.services=res;
 
         }, error => {

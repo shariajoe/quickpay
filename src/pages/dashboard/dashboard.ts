@@ -23,7 +23,7 @@ constructor(public navCtrl: NavController, public navParams: NavParams, public m
 ionViewDidLoad() {
     if(localStorage.getItem('user')){
         this.user=JSON.parse(localStorage.getItem('user'));       
-        console.log(this.user);
+        //console.log(this.user);
 
         if(this.user.user_type=="attendant")
         {

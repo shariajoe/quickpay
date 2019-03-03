@@ -174,10 +174,10 @@ create()
                     else
                     {
                         //this.prov.dismiss_loader();
-                        console.log("all ok");
-                        console.log(vehicle_list);
-                        console.log(carpet_list);
-                        console.log(litre_list);
+                        // console.log("all ok");
+                        // console.log(vehicle_list);
+                        // console.log(carpet_list);
+                        // console.log(litre_list);
 
                         var link=this.prov.php+'create_shop.php';
                         var myData = JSON.stringify(

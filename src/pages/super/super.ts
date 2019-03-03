@@ -34,7 +34,7 @@ get_unapproved()
     this.http.get(link)
         .subscribe(data => {
         let res= data;
-        console.log(res);
+        //console.log(res);
         this.shops=res;
 
     }, error => {
@@ -54,7 +54,7 @@ approve(shop_id,owner_id)
     this.http.post(link, myData)
         .subscribe(data => {
         let res = data; 
-        console.log(res);
+        //console.log(res);
         this.get_unapproved();
         let toast = this.toastCtrl.create({
             message: res['msg'],

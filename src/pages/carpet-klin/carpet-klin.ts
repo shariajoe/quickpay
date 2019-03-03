@@ -114,8 +114,6 @@ update(e)
 
         let res= data;
 
-        console.log(res);
-
     }, error => {
         console.log(error);
     });
@@ -134,7 +132,7 @@ refresh_status()
         .subscribe(data => {
 
         let res= data;
-        console.log(res['Status']);
+        //console.log(res['Status']);
 
         if(res['Status']=='BAD REQUEST')
         {
@@ -169,7 +167,7 @@ save_payment(res)
         .subscribe(data => {
 
         let res= data;
-        console.log(res);
+        //console.log(res);
         this.payment_status=res['status'];
 
     }, error => {

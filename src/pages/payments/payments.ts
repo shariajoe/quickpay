@@ -64,7 +64,7 @@ check_user()
 
             let res= data;
             this.uid=res[0];
-            console.log(this.uid); 
+            //console.log(this.uid); 
             this.get_payments();
 
         }, error => {
@@ -104,7 +104,7 @@ get_payments()
         let res= data;
         this.payments=res;
         this.dtTrigger.next();
-        console.log(this.payments);
+        //console.log(this.payments);
 
     }, error => {
         console.log(error);
