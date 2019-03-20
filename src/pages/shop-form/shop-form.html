@@ -125,6 +125,16 @@ Ionic pages and navigation.
                                         </div> 
                                     </ion-item>
                                 </ion-col>
+                                <div *ngIf="waterBillPaymentEnabled" class="full-width">
+                                    <ion-item class="full-width">
+                                        <ion-label color="quickgrey" fixed text-wrap>1 Meter Unit cost</ion-label>
+                                        <ion-input type="tel" placeholder='eg. 400' ></ion-input>
+                                    </ion-item>
+                                    <ion-item class="full-width" no-lines>
+                                        <ion-label color="quickgrey" fixed text-wrap>Maintenance fee cost</ion-label>
+                                        <ion-input type="tel" placeholder='eg. 400' ></ion-input>
+                                    </ion-item>
+                                </div>
                             </ion-row>
 
                             <ion-row no-padding align-items-center *ngFor="let litre of litres;let i=index" style="border-bottom:1px solid #ddd"

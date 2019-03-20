@@ -127,13 +127,22 @@
                 </ion-col>
                 <ion-col no-padding col-lg-12 col-md-12 col-sm-12 col-12 class="center">
                     <div style="max-width:600px; min-width:350px">
-                        <!--<ion-item>
+                        <ion-item *ngIf="readingNeverTaken">
                             <ion-label floating>Previous Meter Reading</ion-label>
                             <ion-input type="number" [value]="previousMeterReading" readonly></ion-input>
-                        </ion-item>-->
+                        </ion-item>
+                        <div style="margin: 10px;font-size: 12px" ion-text color="quickgreen" *ngIf="readingNeverTaken">
+                            *Enter previous meter reading if previously registered or 0 if not
+                        </div>
                         <ion-item>
                             <ion-label floating>Current Meter Reading</ion-label>
                             <ion-input type="number" [(ngModel)]="currentMeterReading"></ion-input>
+                        </ion-item>
+                        <ion-item no-lines text-wrap color="mytran" class="point_me">
+                            <div item-left class="center">
+                                <ion-checkbox color="quickgreen" [(ngModel)]="maintenance"></ion-checkbox>
+                                <ion-label color="quickgrey">Need maintenance</ion-label>
+                            </div> 
                         </ion-item>
                     </div>
                 </ion-col>

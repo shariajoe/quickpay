@@ -37,6 +37,7 @@ currentMeterReading: number = 0;
 serviceCharge: number = 100;
 sell_water;
 water_bill;
+readingNeverTaken: boolean = true;
 
 constructor(
     public navCtrl: NavController, 
