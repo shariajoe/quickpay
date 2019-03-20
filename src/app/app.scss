@@ -169,3 +169,6 @@ ion-content {
 .alert-md .alert-button{ 
     color: color($colors, quickgreen);
 }
+.split-pane-md.split-pane-visible > .split-pane-side {
+    border-right: 0px
+}
