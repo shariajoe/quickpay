@@ -32,12 +32,15 @@ user: any = {};
 payment_status="Awaiting Payment";
 serviceSelected: boolean = false;
 buyWater: boolean = true;
-previousMeterReading: number = 1;
-currentMeterReading: number = 0;
+previousMeterReading;
+currentMeterReading;
 serviceCharge: number = 100;
 sell_water;
 water_bill;
-readingNeverTaken: boolean = true;
+readingExists: boolean = false;
+maintenance;
+ucost;
+mcost;
 
 constructor(
     public navCtrl: NavController, 
@@ -62,7 +65,7 @@ constructor(
         {name:"Midiwo Wash"},
         {name:"Okoth Obado Wash"},
         {name:"Mwajeu Car Wash"}];*/
-
+    this.user=JSON.parse(localStorage.getItem('user'));
     this.get_shops();
 
     /*this.services = [{name:"20L",price:5,checked: false },
@@ -226,16 +229,29 @@ setVisible(list, payload){
                 },300);
             }
         } else {
-            let total = (this.currentMeterReading - this.previousMeterReading)* this.serviceCharge;
-            this.paymentObj.service_list.push({name:"Water Bill", price: total});
-            this.paymentObj.total = total;
+            let service_list = []; console.log(this.maintenance);
+            let service_names= "Water Bill Payment";
+            let mcost=0;
+            let bill=(this.currentMeterReading - this.previousMeterReading)* this.ucost;
+            let waterCost={name:"Water Bill",price:bill};
+            this.paymentObj.service_list.push(waterCost);
+
+            if(this.maintenance)
+            {
+                let mainCost={name:"Maintenance Bill",price:this.mcost};
+                this.paymentObj.service_list.push(mainCost);
+                mcost=this.mcost;
+                service_names=service_names+" and Meter Maintenance ";
+            }
+
+            this.paymentObj.total = bill+mcost;
 
             //save invoice in db
             var myData = JSON.stringify(
                 {
                     uid: this.user.id ,  
                     shop_id:this.paymentObj.shop_id,
-                    service_names:"Water Bill Payment",
+                    service_names:service_names,
                     total:this.paymentObj.total
                 });
             var link=this.prov.php+'save_invoice.php';
@@ -249,7 +265,7 @@ setVisible(list, payload){
             }, error => {
                 console.log(error);
             });
-            
+
 
             this.shopList = false;
             this.serviceList = false;
@@ -257,6 +273,33 @@ setVisible(list, payload){
             setTimeout(()=>{
                 this.slide_down = true;
             },300);
+            //save invoice in db
+            
+            //save meter reading
+            var myData = JSON.stringify(
+                {
+                    uid: this.user.id ,
+                    meterReading:this.currentMeterReading
+                });
+            var link=this.prov.php+'saveMeterReading.php';
+
+            this.http.post(link, myData)
+                .subscribe(data => {
+                let res = data; 
+                console.log(res);
+
+            }, error => {
+                console.log(error);
+            });
+
+
+            this.shopList = false;
+            this.serviceList = false;
+            this.reviewList = true;
+            setTimeout(()=>{
+                this.slide_down = true;
+            },300);
+            
         }
     } else if(list=="shopList"){
         this.shopList = true;
@@ -269,6 +312,10 @@ setVisible(list, payload){
             this.paymentObj.shop_id = payload.id;
             this.sell_water=payload.sell_water;
             this.water_bill=payload.water_bill;
+            this.readingExists=payload.readingExists;
+            this.ucost=payload.unitCost;
+            this.mcost=payload.maintenanceCost;
+            this.previousMeterReading=payload.lastReading
             //console.log(this.paymentObj);
         }
 
@@ -300,11 +347,16 @@ get_shops()
 {
     var link=this.prov.php+'get_water_shops.php';
 
-    this.http.get(link)
+    var myData = JSON.stringify(
+        {
+            uid:this.user.id
+        });
+
+    this.http.post(link,myData)
         .subscribe(data => {
 
         let res= data;
-        //console.log(res);
+        console.log(res);
         this.shops=res;
 
         this.allShops = this.shops;
@@ -332,7 +384,7 @@ ionViewWillEnter(){
 }
 
 ionViewDidLoad() {
-    this.user=JSON.parse(localStorage.getItem('user')); 
+
 }
 
 penMenu() {

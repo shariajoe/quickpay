@@ -128,11 +128,11 @@ Ionic pages and navigation.
                                 <div *ngIf="waterBillPaymentEnabled" class="full-width">
                                     <ion-item class="full-width">
                                         <ion-label color="quickgrey" fixed text-wrap>1 Meter Unit cost</ion-label>
-                                        <ion-input type="tel" placeholder='eg. 400' ></ion-input>
+                                        <ion-input type="tel" placeholder='eg. 400' [(ngModel)]="unit" (ionBlur)="set_unit(unit)"></ion-input>
                                     </ion-item>
                                     <ion-item class="full-width" no-lines>
                                         <ion-label color="quickgrey" fixed text-wrap>Maintenance fee cost</ion-label>
-                                        <ion-input type="tel" placeholder='eg. 400' ></ion-input>
+                                        <ion-input type="tel" placeholder='eg. 400' [(ngModel)]="maintenance" (ionBlur)="set_maintenance(maintenance)"></ion-input>
                                     </ion-item>
                                 </div>
                             </ion-row>

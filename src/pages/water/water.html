@@ -127,12 +127,12 @@
                 </ion-col>
                 <ion-col no-padding col-lg-12 col-md-12 col-sm-12 col-12 class="center">
                     <div style="max-width:600px; min-width:350px">
-                        <ion-item *ngIf="readingNeverTaken">
-                            <ion-label floating>Previous Meter Reading</ion-label>
-                            <ion-input type="number" [value]="previousMeterReading" readonly></ion-input>
+                        <ion-item *ngIf="!readingExists">
+                            <ion-label floating>Last Meter Reading</ion-label>
+                            <ion-input type="number" [(ngModel)]="previousMeterReading" ></ion-input>
                         </ion-item>
-                        <div style="margin: 10px;font-size: 12px" ion-text color="quickgreen" *ngIf="readingNeverTaken">
-                            *Enter previous meter reading if previously registered or 0 if not
+                        <div style="margin: 10px;font-size: 12px" ion-text color="quickgreen" *ngIf="!readingExists">
+                            *Enter 0 if you this is your first time paying using swift water
                         </div>
                         <ion-item>
                             <ion-label floating>Current Meter Reading</ion-label>

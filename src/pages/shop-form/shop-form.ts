@@ -18,6 +18,9 @@ shop_name;
 user: any = {};
 waterBillPaymentEnabled: boolean = false;
 serviceType: string = "carCare";
+water_bill:any={};
+maintenance;
+unit;
 
 constructor(public navCtrl: NavController, 
             public navParams: NavParams, 
@@ -38,6 +41,8 @@ constructor(public navCtrl: NavController,
                         {name:"Trailer",image:"assets/imgs/cars/trailer.png", checked:false, id:8 ,service_prices:[] },
                         {name:"Heavy Machinery",image:"assets/imgs/cars/tractor.png", checked:false, id:9 ,service_prices:[] },
                         {name:"Others",image:"assets/imgs/cars/saloon.png", checked:false, id:10 ,service_prices:[] }];
+
+    this.water_bill={enable:false,unit_cost:0,maintenance_cost:0};
 
     this.services = [
         {name:"Exterior Basic" , id:1 },
@@ -81,6 +86,17 @@ carpet_price(price,carpet)
 
 }
 
+set_unit(u)
+{
+    this.water_bill.unit_cost=u;
+    this.water_bill.enable=true;
+}
+
+set_maintenance(m)
+{
+    this.water_bill.maintenance_cost=m;
+}
+
 litre_price(price,litre)
 {
     if(price!=undefined)
@@ -106,10 +122,10 @@ openPage(page){
 }*/
 
 create()
-{
+{   
     let alert = this.alertCtrl.create({
         title: 'Create Shop',
-        message: 'I confirm that I have filled in  details for all services offered at my station',
+        message: 'I confirm that I have filled in  details for all services offered at my shop',
         buttons: [
             {
                 text: 'Not yet',
@@ -171,13 +187,25 @@ create()
 
                         toast.present();
                     }
+                    else if ( this.waterBillPaymentEnabled && (this.water_bill.unit_cost==0 || this.water_bill.maintenance_cost==0 ) )
+                    {
+                        this.prov.dismiss_loader();
+
+                        let toast = this.toastCtrl.create({
+                            message: "Enter both water unit cost and meter maintenance cost",
+                            showCloseButton: true,
+                            position: 'bottom'
+                        });
+
+                        toast.present();
+                    }
                     else
                     {
                         //this.prov.dismiss_loader();
-                        // console.log("all ok");
+                        //console.log("all ok");
                         // console.log(vehicle_list);
                         // console.log(carpet_list);
-                        // console.log(litre_list);
+                        //console.log(this.water_bill);
 
                         var link=this.prov.php+'create_shop.php';
                         var myData = JSON.stringify(
@@ -187,7 +215,7 @@ create()
                                 car_wash_prices:vehicle_list,
                                 carpet_wash_prices:carpet_list,
                                 water_prices:litre_list,
-                                water_bill_payment:this.waterBillPaymentEnabled
+                                water_bill_payment:this.water_bill
                             });
 
                         this.http.post(link, myData)
