@@ -236,13 +236,9 @@ setVisible(list, payload){
             let waterCost={name:"Water Bill",price:bill};
             this.paymentObj.service_list.push(waterCost);
 
-            if(this.maintenance)
-            {
-                let mainCost={name:"Maintenance Bill",price:this.mcost};
-                this.paymentObj.service_list.push(mainCost);
-                mcost=this.mcost;
-                service_names=service_names+" and Meter Maintenance ";
-            }
+            let mainCost={name:"Maintenance Cost",price:this.mcost};
+            this.paymentObj.service_list.push(mainCost);
+            mcost=this.mcost;
 
             this.paymentObj.total = bill+mcost;
 
@@ -274,7 +270,7 @@ setVisible(list, payload){
                 this.slide_down = true;
             },300);
             //save invoice in db
-            
+
             //save meter reading
             var myData = JSON.stringify(
                 {
@@ -299,7 +295,7 @@ setVisible(list, payload){
             setTimeout(()=>{
                 this.slide_down = true;
             },300);
-            
+
         }
     } else if(list=="shopList"){
         this.shopList = true;
