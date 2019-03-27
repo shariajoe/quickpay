@@ -228,73 +228,86 @@ setVisible(list, payload){
                     that.slide_down = true;
                 },300);
             }
-        } else {
-            let service_list = []; console.log(this.maintenance);
-            let service_names= "Water Bill Payment";
-            let mcost=0;
-            let bill=(this.currentMeterReading - this.previousMeterReading)* this.ucost;
-            let waterCost={name:"Water Bill",price:bill};
-            this.paymentObj.service_list.push(waterCost);
+        } else 
+        {
+            if(this.currentMeterReading==undefined)
+            {
+                this.shopList = false;
+                this.serviceList = true;
+                this.reviewList = false;
+            }
+            else
+            {
+                let service_list = []; 
+                let service_names= "Water Bill Payment";
+                let mcost=0;
+                let bill=(this.currentMeterReading - this.previousMeterReading)* this.ucost;
+                this.previousMeterReading=this.currentMeterReading;
+                let waterCost={name:"Water Bill",price:bill};
+                service_list.push(waterCost);
 
-            let mainCost={name:"Maintenance Cost",price:this.mcost};
-            this.paymentObj.service_list.push(mainCost);
-            mcost=this.mcost;
+                let mainCost={name:"Maintenance Cost",price:this.mcost};
+                service_list.push(mainCost);
+                mcost=this.mcost;
 
-            this.paymentObj.total = bill+mcost;
+                this.paymentObj.service_list=service_list;
+                this.paymentObj.total = bill+mcost;
 
-            //save invoice in db
-            var myData = JSON.stringify(
-                {
-                    uid: this.user.id ,  
-                    shop_id:this.paymentObj.shop_id,
-                    service_names:service_names,
-                    total:this.paymentObj.total
+                //save invoice in db
+                var myData = JSON.stringify(
+                    {
+                        uid: this.user.id ,  
+                        shop_id:this.paymentObj.shop_id,
+                        service_names:service_names,
+                        total:this.paymentObj.total
+                    });
+                var link=this.prov.php+'save_invoice.php';
+
+                this.http.post(link, myData)
+                    .subscribe(data => {
+                    let res = data; 
+                    //console.log(res);
+                    this.invoice_id=res[0];
+
+                }, error => {
+                    console.log(error);
                 });
-            var link=this.prov.php+'save_invoice.php';
-
-            this.http.post(link, myData)
-                .subscribe(data => {
-                let res = data; 
-                //console.log(res);
-                this.invoice_id=res[0];
-
-            }, error => {
-                console.log(error);
-            });
 
 
-            this.shopList = false;
-            this.serviceList = false;
-            this.reviewList = true;
-            setTimeout(()=>{
-                this.slide_down = true;
-            },300);
-            //save invoice in db
+                this.shopList = false;
+                this.serviceList = false;
+                this.reviewList = true;
+                setTimeout(()=>{
+                    this.slide_down = true;
+                },300);
+                //save invoice in db
 
-            //save meter reading
-            var myData = JSON.stringify(
-                {
-                    uid: this.user.id ,
-                    meterReading:this.currentMeterReading
+                //save meter reading
+                var myData = JSON.stringify(
+                    {
+                        uid: this.user.id ,
+                        meterReading:this.currentMeterReading
+                    });
+                var link=this.prov.php+'saveMeterReading.php';
+
+                this.http.post(link, myData)
+                    .subscribe(data => {
+                    let res = data; 
+                    console.log(res);
+
+                }, error => {
+                    console.log(error);
                 });
-            var link=this.prov.php+'saveMeterReading.php';
-
-            this.http.post(link, myData)
-                .subscribe(data => {
-                let res = data; 
-                console.log(res);
-
-            }, error => {
-                console.log(error);
-            });
 
 
-            this.shopList = false;
-            this.serviceList = false;
-            this.reviewList = true;
-            setTimeout(()=>{
-                this.slide_down = true;
-            },300);
+                this.shopList = false;
+                this.serviceList = false;
+                this.reviewList = true;
+                setTimeout(()=>{
+                    this.slide_down = true;
+                },300);
+            }
+
 
         }
     } else if(list=="shopList"){
