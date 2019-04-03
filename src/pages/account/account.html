@@ -20,19 +20,20 @@ Ionic pages and navigation.
     <div class="full-width full-height">
         <ion-list class="full-width" style="max-width: 600px;margin:0px auto;">
 
-            <div *ngIf="!isPasswordForm">
-                <ion-item>
-                    <ion-label color="quickgrey" floating>Username</ion-label>
-                    <ion-input type="text"></ion-input>
-                </ion-item>
-                <ion-item>
-                    <ion-label color="quickgrey" floating>Phone number</ion-label>
-                    <ion-input type="tel"></ion-input>
-                </ion-item>
-                <ion-item no-lines>
-                    <ion-label color="quickgrey" floating>Password</ion-label>
-                    <ion-input type="password"></ion-input>
-                </ion-item>
+            <div *ngIf="user.user_type=='shop_owner' || user.user_type=='super_admin'">
+                Wallet Balance : shs. {{balance | number}} 
+                <br>
+                <div *ngIf="balance>=100">
+                    SwiftPay Fee : shs. {{swiftpay_fee | number}}
+                    <br>
+                    Transaction Fees : shs. {{mpesa_fees | number}}   
+                    <br>
+                    Amount Left : shs. {{towithdraw | number}}
+                    <br>
+                    MPESA Number : {{phone}} 
+                    <br>
+                </div>
+                <button ion-button small (click)="withdraw()">Withdraw</button>
             </div>
 
             <div *ngIf="isPasswordForm">
@@ -87,6 +88,7 @@ Ionic pages and navigation.
                 </ion-col>
 
             </ion-row>
+
         </ion-list>
     </div>
 
