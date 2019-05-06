@@ -12,6 +12,9 @@ export class SuperPage {
 
     user: any = {};
 shops:any=[];
+allshops:any=[];
+users:any=[];
+action="approve";
 
 constructor(
     public navCtrl: NavController, 
@@ -27,6 +30,32 @@ ionViewDidLoad() {
     this.get_unapproved();
 }
 
+del_user(uid)
+{
+    var myData = JSON.stringify(
+        {
+            uid: uid
+        });
+    var link=this.prov.php+'del_user.php';
+
+    this.http.post(link, myData)
+        .subscribe(data => {
+        let res = data; 
+        console.log(res);
+        this.get_unapproved();
+        let toast = this.toastCtrl.create({
+            message: res['msg'],
+            duration: 5000,
+            position: 'bottom'
+        });
+        toast.present();
+
+
+    }, error => {
+        console.log(error);
+    });
+}
+
 get_unapproved()
 {
     var link=this.prov.php+'get_unapproved.php';
@@ -34,8 +63,10 @@ get_unapproved()
     this.http.get(link)
         .subscribe(data => {
         let res= data;
-        //console.log(res);
-        this.shops=res;
+        console.log(res);
+        this.shops=res['unapproved'];
+        this.allshops=res['allshops'];
+        this.users=res['users'];
 
     }, error => {
         console.log(error);
@@ -59,6 +90,32 @@ approve(shop_id,owner_id)
         let toast = this.toastCtrl.create({
             message: res['msg'],
             duration: 3000,
+            position: 'bottom'
+        });
+        toast.present();
+
+
+    }, error => {
+        console.log(error);
+    });
+}
+
+del(sid)
+{
+    var myData = JSON.stringify(
+        {
+            sid: sid
+        });
+    var link=this.prov.php+'del_shop.php';
+
+    this.http.post(link, myData)
+        .subscribe(data => {
+        let res = data; 
+        console.log(res);
+        this.get_unapproved();
+        let toast = this.toastCtrl.create({
+            message: res['msg'],
+            duration: 5000,
             position: 'bottom'
         });
         toast.present();

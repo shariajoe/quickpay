@@ -13,24 +13,80 @@
 
 <ion-content padding>
 
-    <div style="padding-bottom: 10px;border-bottom: 1px solid black;display: inline-block;margin-bottom: 10px;">
-        Approve Shops
+    <ion-segment [(ngModel)]="action">
+
+        <ion-segment-button value="approve">
+            Approve 
+        </ion-segment-button>
+
+        <ion-segment-button value="del_shop">
+            remove Shop
+        </ion-segment-button>
+
+        <ion-segment-button value="del_user">
+            remove User
+        </ion-segment-button>
+
+    </ion-segment>
+
+    <div [ngSwitch]="action">
+        <ion-list *ngSwitchCase="'approve'">
+           <br>
+            <table>
+                <tr>
+                    <th>User</th>
+                    <th>Shop</th>
+                    <th>Approve</th>
+                </tr>
+
+                <tr *ngFor="let shop of shops">
+                    <td>{{shop.uname}}</td>
+                    <td>{{shop.name}}</td>
+                    <td>
+                        <button ion-button color="default" small style="text-transform: capitalize;" (click)="approve(shop.id,shop.uid)">Approve</button>
+                    </td>
+                </tr>
+            </table>
+
+        </ion-list>
+
+        <ion-list *ngSwitchCase="'del_shop'">
+           <br>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Owner</th>
+                    <th>Delete</th>
+                </tr>
+
+                <tr *ngFor="let shop of allshops">
+                    <td>{{shop.sname}}</td>
+                    <td>{{shop.owner}}</td>
+                    <td>
+                        <button ion-button color="default" small style="text-transform: capitalize;" (click)="del(shop.sid)">Delete</button>
+                    </td>
+                </tr>
+            </table>
+        </ion-list>
+
+        <ion-list *ngSwitchCase="'del_user'">
+           <br>
+            <table>
+                <tr>
+                    <th>User</th>
+                    <th>Type</th>
+                    <th>Delete</th>
+                </tr>
+
+                <tr *ngFor="let user of users">
+                    <td>{{user.name}}</td>
+                    <td>{{user.type}}</td>
+                    <td>
+                        <button ion-button color="default" small style="text-transform: capitalize;" (click)="del_user(user.uid)">Delete</button>
+                    </td>
+                </tr>
+            </table>
+        </ion-list>
     </div>
-
-    <table>
-        <tr>
-            <th>User</th>
-            <th>Shop</th>
-            <th>Approve</th>
-        </tr>
-
-        <tr *ngFor="let shop of shops">
-            <td>{{shop.uname}}</td>
-            <td>{{shop.name}}</td>
-            <td>
-                <button ion-button color="default" small style="text-transform: capitalize;" (click)="approve(shop.id,shop.uid)">Approve</button>
-            </td>
-        </tr>
-    </table>
 
 </ion-content>
